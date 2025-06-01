@@ -11,9 +11,17 @@ config_version=5
 [application]
 
 config/name="Dash Game"
-run/main_scene="uid://bls1omlom2vkk"
+run/main_scene="uid://cxg4loibiivqe"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SignalBus="*res://scripts/SignalBus.gd"
+
+[global_group]
+
+DashPickups="group of all dash pickups"
 
 [gui]
 

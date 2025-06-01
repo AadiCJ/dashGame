@@ -6,6 +6,7 @@
 script = ExtResource("1_ahhtf")
 
 [node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 95.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 64
 text = "3"
