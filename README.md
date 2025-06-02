@@ -20,10 +20,12 @@ Increased mobility and attacking, both contained in the single mechanic.
 
 ---
 
-## Solo Project
+## (almost) Solo Project
 
-This is a personal project made entirely by me — design, development, and testing.  
+This is a personal project made mostly by me — development, and testing.  
 I’m using it to level up my game dev skills and explore what Godot can do.
+The levels are all designed by my girlfriend. 
+
 
 ## Asset Credit
 Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
@@ -35,14 +37,16 @@ Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/as
 - You can move
 - You can dash (wow)
 - You can move around and jump
+- You can die (...)
+- You can climb ladders
+- You can move through levels
 
 ---
 
 ## Features (TODO)
 
 - Enemies
-- More levels (i have no good ones right now)
-
+- 
 ### If I have time
 - Powerups
 - Levels
