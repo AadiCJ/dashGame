@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmec34vf4myt5"]
+[gd_scene load_steps=7 format=3 uid="uid://bmec34vf4myt5"]
 
 [ext_resource type="Texture2D" uid="uid://5ac2xulr6ekg" path="res://assets/sprites/tilemap-characters_packed.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://b5tucn7mf1fb4" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://bxts6n0pw54v5" path="res://scenes/hud.tscn" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("1_3vyb7")
@@ -34,5 +35,11 @@ shape = SubResource("RectangleShape2D_g2els")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.12
+
+[node name="HUD" parent="." instance=ExtResource("3_qhqgy")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -19,10 +19,6 @@ config/icon="res://icon.svg"
 
 SignalBus="*res://scripts/SignalBus.gd"
 
-[global_group]
-
-DashPickups="group of all dash pickups"
-
 [gui]
 
 theme/custom_font="uid://dpoogorm6ecp3"
