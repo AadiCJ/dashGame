@@ -10,6 +10,7 @@ signal died()
 signal isClimbing()
 signal stoppedClimbing()
 signal healthUpdated(currentHealth: int)
+signal damage(value: int)
 
 @warning_ignore_restore("unused_signal")
     

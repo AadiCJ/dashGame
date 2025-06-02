@@ -8,12 +8,20 @@ const MAX_DASHES := 3
 const DOUBLE_JUMP_VELOCITY = -1 * SPEED * DASH_FACTOR
 
 var actualSpeed := SPEED
-var dashes := 3
 var hasDied := false
 var doubleJumped := false
 var canDash := true
 var mStyle = movementStyles.MOVE
 var velocityLastFrame = 0
+
+var isDashing = false
+
+var dashes := 3:
+	set(value):
+		dashes = clamp(value, 0, 3)
+		SignalBus.dashesUpdated.emit(dashes)
+
+
 var health = 3:
 	set(value):
 		health = value
@@ -26,11 +34,19 @@ func _ready() -> void:
 	SignalBus.died.connect(_on_died)
 	SignalBus.isClimbing.connect(_on_start_climbing)
 	SignalBus.stoppedClimbing.connect(_on_stopped_climbing)
+	SignalBus.dashStarted.connect(_on_started_dash)
+	SignalBus.dashEnded.connect(_on_ended_dash)
+	SignalBus.damage.connect(_on_damage)
 	
 
 func _process(_delta: float) -> void:
 	if health <= 0:
 		SignalBus.died.emit()
+	
+	if isDashing:
+		$AnimatedSprite2D.play("dash")
+	else:
+		$AnimatedSprite2D.play("default")
 
 
 func _physics_process(delta: float) -> void:
@@ -55,8 +71,7 @@ func _physics_process(delta: float) -> void:
 			#double jump handling
 			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
 				and not doubleJumped and dashes > 0 and not hasDied):
-
-				updateDashes(-1)
+				dashes -= 1
 				canDash = false
 				doubleJumped = true
 				velocity.y = DOUBLE_JUMP_VELOCITY
@@ -71,7 +86,7 @@ func _physics_process(delta: float) -> void:
 		if dashes > 0 and direction and canDash:
 			if Input.is_action_just_pressed("dash"):
 				canDash = false
-				updateDashes(-1)
+				dashes -= 1
 				actualSpeed = SPEED * DASH_FACTOR
 				$DashTimer.start()
 				SignalBus.dashStarted.emit()
@@ -79,7 +94,7 @@ func _physics_process(delta: float) -> void:
 
 		if is_on_floor():
 			doubleJumped = false
-			if velocityLastFrame > abs(JUMP_VELOCITY + DOUBLE_JUMP_VELOCITY) - 150:
+			if velocityLastFrame > abs(JUMP_VELOCITY + DOUBLE_JUMP_VELOCITY) - 100:
 				health -= 1
 		
 	elif mStyle == movementStyles.CLIMB:
@@ -100,12 +115,7 @@ func _on_dash_timer_timeout() -> void:
 	#tell the enemies when the dash is over
 
 func _on_dash_picked_up() -> void:
-	updateDashes(1)
-
-func updateDashes(change: int) -> void:
-	dashes = clamp(dashes+change, 0, MAX_DASHES)
-	SignalBus.dashesUpdated.emit(dashes)
-	#tell the hud to update
+	dashes += 1
 
 func _on_died():
 	#upward bounce when you die
@@ -126,9 +136,18 @@ func _on_stopped_climbing():
 enum movementStyles {
 	MOVE,
 	CLIMB,
-	WALL
 }
 
 
 func _on_death_timer_timeout() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_started_dash():
+	isDashing = true
+
+func _on_ended_dash():
+	isDashing = false
+
+func _on_damage(damage: int):
+	health -= damage
