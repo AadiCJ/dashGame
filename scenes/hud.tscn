@@ -5,8 +5,18 @@
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_ahhtf")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 95.0
-offset_bottom = 52.0
-theme_override_font_sizes/font_size = 64
+[node name="Dashes" type="Label" parent="."]
+offset_left = 1.0
+offset_right = 465.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 32
 text = "3"
+
+[node name="HeartContainer" type="HBoxContainer" parent="."]
+layout_direction = 2
+offset_left = 931.0
+offset_right = 1153.0
+offset_bottom = 190.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2

@@ -26,7 +26,7 @@ tile_set = ExtResource("1_gew73")
 position = Vector2(9, 72)
 
 [node name="Player" parent="Basics" instance=ExtResource("2_bmgug")]
-position = Vector2(0, -8)
+position = Vector2(69, -8)
 
 [node name="levelEnd" parent="Basics" instance=ExtResource("3_20opy")]
 position = Vector2(275, -87)

@@ -22,7 +22,7 @@ position = Vector2(136, -12)
 [node name="Basics" type="Node" parent="."]
 
 [node name="Player" parent="Basics" instance=ExtResource("1_pqqg8")]
-position = Vector2(-25, -9)
+position = Vector2(47, -8)
 
 [node name="levelEnd" parent="Basics" instance=ExtResource("5_ep78u")]
 position = Vector2(311, 0)

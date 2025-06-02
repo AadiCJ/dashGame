@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://wn4i271sjhiy"]
+
+[ext_resource type="Script" uid="uid://dldh7kckxlerh" path="res://scripts/heart_panel.gd" id="1_7xgk1"]
+[ext_resource type="Texture2D" uid="uid://3a1k33kfl52x" path="res://assets/sprites/tilemap_packed.png" id="1_uqequ"]
+
+[node name="HeartPanel" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(42, 37)
+offset_right = 42.0
+offset_bottom = 37.0
+script = ExtResource("1_7xgk1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6, -8)
+scale = Vector2(3, 3)
+texture = ExtResource("1_uqequ")
+centered = false
+hframes = 20
+vframes = 9
+frame = 44

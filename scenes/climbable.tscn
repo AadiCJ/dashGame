@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddp6c3inllfgn" path="res://scripts/climbable.gd" id="1_l2bat"]
 
-[node name="Area2D" type="Area2D"]
+[node name="climbable" type="Area2D"]
 script = ExtResource("1_l2bat")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

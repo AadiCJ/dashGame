@@ -5,12 +5,20 @@ const SPEED := 130.0
 const JUMP_VELOCITY := -200.0
 const DASH_FACTOR := 3.5		
 const MAX_DASHES := 3
+const DOUBLE_JUMP_VELOCITY = -1 * SPEED * DASH_FACTOR
+
 var actualSpeed := SPEED
 var dashes := 3
 var hasDied := false
 var doubleJumped := false
 var canDash := true
 var mStyle = movementStyles.MOVE
+var velocityLastFrame = 0
+var health = 3:
+	set(value):
+		health = value
+		SignalBus.healthUpdated.emit(health)
+
 
 
 func _ready() -> void:
@@ -20,13 +28,24 @@ func _ready() -> void:
 	SignalBus.stoppedClimbing.connect(_on_stopped_climbing)
 	
 
+func _process(_delta: float) -> void:
+	if health <= 0:
+		SignalBus.died.emit()
+
+
 func _physics_process(delta: float) -> void:
+
 	canDash = true
+
+
+	#horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
+	if direction and not hasDied:
 		velocity.x = direction * actualSpeed
 	else:
 		velocity.x = move_toward(velocity.x, 0, actualSpeed)
+
+
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
 
@@ -34,14 +53,17 @@ func _physics_process(delta: float) -> void:
 			#add gravity
 			velocity += get_gravity() * delta
 			#double jump handling
-			if Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") and not doubleJumped and dashes > 0:
+			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
+				and not doubleJumped and dashes > 0 and not hasDied):
+
 				updateDashes(-1)
 				canDash = false
 				doubleJumped = true
-				velocity.y = -1 * SPEED * DASH_FACTOR
+				velocity.y = DOUBLE_JUMP_VELOCITY
 
 		# Handle jump.
 		if Input.is_action_just_pressed("jump") and is_on_floor():
+			#don't need to check if he's alive here, since collider is removed on death
 			velocity.y = JUMP_VELOCITY
 
 
@@ -57,18 +79,21 @@ func _physics_process(delta: float) -> void:
 
 		if is_on_floor():
 			doubleJumped = false
+			if velocityLastFrame > abs(JUMP_VELOCITY + DOUBLE_JUMP_VELOCITY) - 150:
+				health -= 1
 		
 	elif mStyle == movementStyles.CLIMB:
 		direction = Input.get_axis("jump", "move_down")
-		if direction:
+		#climbing movement
+		if direction and not hasDied:
 			velocity.y = direction * SPEED
 		else:
 			velocity.y = move_toward(velocity.y, 0, actualSpeed)	
-	
+	velocityLastFrame = velocity.y
 	move_and_slide()
 
 
-func _on_timer_timeout() -> void:
+func _on_dash_timer_timeout() -> void:
 	actualSpeed = SPEED	
 	SignalBus.dashEnded.emit()
 	#tell the enemies when the dash is over
@@ -84,8 +109,11 @@ func updateDashes(change: int) -> void:
 func _on_died():
 	#upward bounce when you die
 	if not hasDied:
+		health = 0
 		velocity.y = -200
 		hasDied = true
+		$DeathTimer.start()
+		$CollisionShape2D.queue_free()
 		#makes sure you don't keep bouncing forever
 
 func _on_start_climbing():
@@ -98,3 +126,7 @@ enum movementStyles {
 	MOVE,
 	CLIMB
 }
+
+
+func _on_death_timer_timeout() -> void:
+	get_tree().reload_current_scene()

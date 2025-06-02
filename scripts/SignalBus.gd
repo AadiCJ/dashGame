@@ -9,6 +9,7 @@ signal dashPickedUp()
 signal died()
 signal isClimbing()
 signal stoppedClimbing()
+signal healthUpdated(currentHealth: int)
 
 @warning_ignore_restore("unused_signal")
     
