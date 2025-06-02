@@ -40,7 +40,7 @@ one_shot = true
 [node name="HUD" parent="." instance=ExtResource("3_qhqgy")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 
 [connection signal="timeout" from="DashTimer" to="." method="_on_timer_timeout"]

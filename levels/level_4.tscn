@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=4 uid="uid://cdguoeh0pl6al"]
+
+[ext_resource type="TileSet" uid="uid://ivannuu7uhsl" path="res://assets/tileset/game.tres" id="1_s4mq8"]
+[ext_resource type="PackedScene" uid="uid://06eq6m5svosu" path="res://scenes/level_end.tscn" id="2_t0qhu"]
+[ext_resource type="PackedScene" uid="uid://bu3ptkhwhye4q" path="res://scenes/hint.tscn" id="3_t6q73"]
+[ext_resource type="PackedScene" uid="uid://bmec34vf4myt5" path="res://scenes/player.tscn" id="4_t0qhu"]
+[ext_resource type="PackedScene" uid="uid://b3h043eh5i2km" path="res://scenes/world_boundary.tscn" id="5_t6q73"]
+
+[node name="level_4" type="Node2D"]
+
+[node name="Hint" parent="." instance=ExtResource("3_t6q73")]
+offset_left = 53.0
+offset_top = -47.0
+offset_right = 231.0
+offset_bottom = -28.0
+text = "Dashing in air after a double
+jump lets you reach far"
+
+[node name="Hint2" parent="." instance=ExtResource("3_t6q73")]
+offset_left = 327.0
+offset_top = -71.0
+offset_right = 407.0
+offset_bottom = -55.0
+text = "like VERY far"
+
+[node name="Basics" type="Node" parent="."]
+
+[node name="Player" parent="Basics" instance=ExtResource("4_t0qhu")]
+position = Vector2(0, -8)
+
+[node name="WorldBoundary" parent="Basics" instance=ExtResource("5_t6q73")]
+position = Vector2(64, 74)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Basics"]
+tile_map_data = PackedByteArray("AAD+/wAAAgABAAMAAAD//wAAAgACAAMAAAAAAAAAAgACAAMAAAABAAAAAgACAAMAAAACAAAAAgACAAMAAAADAAAAAgACAAMAAAAEAAAAAgACAAMAAAAFAAAAAgACAAMAAAAGAAAAAgACAAMAAAD+/wEAAgABAAYAAAD+/wIAAgABAAYAAAD+/wMAAgABAAcAAAD//wMAAgACAAcAAAAAAAMAAgACAAcAAAABAAMAAgACAAcAAAACAAMAAgACAAcAAAADAAMAAgACAAcAAAAEAAMAAgACAAcAAAAFAAMAAgACAAcAAAAGAAEAAgACAAYAAAD//wEAAgACAAYAAAAAAAEAAgACAAYAAAABAAEAAgACAAYAAAACAAEAAgACAAYAAAADAAEAAgACAAYAAAAEAAEAAgACAAYAAAAFAAEAAgACAAYAAAAFAAIAAgACAAYAAAAEAAIAAgACAAYAAAADAAIAAgACAAYAAAACAAIAAgACAAYAAAABAAIAAgACAAYAAAAAAAIAAgACAAYAAAD//wIAAgACAAYAAAAHAAAAAgACAAMAAAAIAAAAAgACAAMAAAAJAAAAAgACAAMAAAAKAAAAAgACAAMAAAALAAAAAgACAAMAAAAMAAAAAgACAAMAAAANAAAAAgACAAMAAAAOAAAAAgACAAMAAAAPAAAAAgACAAMAAAAQAAAAAgACAAMAAAARAAAAAgADAAMAAAAIAAEAAgACAAYAAAAHAAEAAgACAAYAAAAJAAEAAgACAAYAAAAKAAEAAgACAAYAAAALAAEAAgACAAYAAAAMAAEAAgACAAYAAAANAAEAAgACAAYAAAAOAAEAAgACAAYAAAAPAAEAAgACAAYAAAAQAAEAAgACAAYAAAARAAEAAgADAAYAAAARAAIAAgADAAYAAAAQAAIAAgACAAYAAAAPAAIAAgACAAYAAAAOAAIAAgACAAYAAAANAAIAAgACAAYAAAAMAAIAAgACAAYAAAALAAIAAgACAAYAAAAGAAMAAgACAAcAAAAHAAMAAgACAAcAAAAIAAMAAgACAAcAAAAJAAMAAgACAAcAAAAKAAMAAgACAAcAAAALAAMAAgACAAcAAAAMAAMAAgACAAcAAAANAAMAAgACAAcAAAAOAAMAAgACAAcAAAAPAAMAAgACAAcAAAAQAAMAAgACAAcAAAARAAMAAgADAAcAAAAKAAIAAgACAAYAAAAJAAIAAgACAAYAAAAIAAIAAgACAAYAAAAHAAIAAgACAAYAAAAGAAIAAgACAAYAAAAaAP3/AgABAAIAAAAbAP3/AgACAAIAAAAcAP3/AgACAAIAAAAdAP3/AgACAAIAAAAeAP3/AgADAAIAAAA=")
+tile_set = ExtResource("1_s4mq8")
+
+[node name="levelEnd" parent="Basics" instance=ExtResource("2_t0qhu")]
+position = Vector2(510, -53)

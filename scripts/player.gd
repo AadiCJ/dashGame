@@ -7,7 +7,8 @@ const DASH_FACTOR = 3
 const MAX_DASHES = 3
 var actualSpeed := SPEED
 var dashes := 3
-var hasDied = false
+var hasDied := false
+var doubleJumped := false
 
 func _ready() -> void:
 	SignalBus.dashPickedUp.connect(_on_dash_picked_up)
@@ -17,8 +18,14 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
+	var dashedNow = false
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		if Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") and not doubleJumped and dashes > 0:
+			updateDashes(-1)
+			dashedNow = true
+			doubleJumped = true
+			velocity.y = -1 * SPEED * DASH_FACTOR
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -28,13 +35,16 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	
 	#TODO: make dashes work on double pressed of inputs
-	if dashes > 0 and direction:
+	if dashes > 0 and direction and not dashedNow:
 		if Input.is_action_just_pressed("dash"):
 			updateDashes(-1)
 			actualSpeed = SPEED * DASH_FACTOR
 			$DashTimer.start()
 			SignalBus.dashStarted.emit()
 			#dash started is used by enemeis to check whether they hurt or they die
+
+	if is_on_floor():
+		doubleJumped = false
 
 	if direction:
 		velocity.x = direction * actualSpeed
