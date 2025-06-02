@@ -34,10 +34,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-
 	canDash = true
-
-
 	#horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction and not hasDied:
@@ -45,13 +42,16 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, actualSpeed)
 
+	if is_on_wall_only():
+		velocity += get_gravity() * delta / 2 #reduce gravity to slide
 
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
 
 		if not is_on_floor():
 			#add gravity
-			velocity += get_gravity() * delta
+			if not is_on_wall():
+				velocity += get_gravity() * delta
 			#double jump handling
 			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
 				and not doubleJumped and dashes > 0 and not hasDied):
@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 				velocity.y = DOUBLE_JUMP_VELOCITY
 
 		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
 			#don't need to check if he's alive here, since collider is removed on death
 			velocity.y = JUMP_VELOCITY
 
@@ -88,7 +88,8 @@ func _physics_process(delta: float) -> void:
 		if direction and not hasDied:
 			velocity.y = direction * SPEED
 		else:
-			velocity.y = move_toward(velocity.y, 0, actualSpeed)	
+			velocity.y = move_toward(velocity.y, 0, actualSpeed)		
+	
 	velocityLastFrame = velocity.y
 	move_and_slide()
 
@@ -124,7 +125,8 @@ func _on_stopped_climbing():
 
 enum movementStyles {
 	MOVE,
-	CLIMB
+	CLIMB,
+	WALL
 }
 
 
