@@ -27,6 +27,7 @@ func _physics_process(delta: float) -> void:
 	
 	var direction := Input.get_axis("move_left", "move_right")
 	
+	#TODO: make dashes work on double pressed of inputs
 	if dashes > 0 and direction:
 		if Input.is_action_just_pressed("dash"):
 			updateDashes(-1)
