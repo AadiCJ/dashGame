@@ -24,31 +24,37 @@ Increased mobility and attacking, both contained in the single mechanic.
 
 This is a personal project made mostly by me — development, and testing.  
 I’m using it to level up my game dev skills and explore what Godot can do.
-The levels are all designed by my girlfriend. 
-
+The levels are all designed by my girlfriend (except the tutorial ones).
+(none of which I have yet implemented, but I will soon enough)
 
 ## Asset Credit
+
 Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
 
 ---
 
 ## Features (Completed)
 
+### Yes this is a complete list of ALL the features
+
 - You can move
 - You can dash (wow)
-- You can move around and jump
+- You can jump
 - You can die (...)
 - You can climb ladders
 - You can move through levels
+- You can climb walls
+- You can take fall damage
 
 ---
 
 ## Features (TODO)
 
 - Enemies
-
+- Coins
   
 ### If I have time
+
 - Powerups
 - Levels
 - Skill Tree
