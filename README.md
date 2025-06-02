@@ -1,7 +1,7 @@
 # Dash Game
 
 Welcome to **Dash Game** — a solo-developed action platformer built using the **Godot Engine**.  
-You have a few dashes, a lot of ingenuinety (for a square) and a lot of enemies (not yet) to mow down
+You have a few dashes, a lot of ingenuinety (for a square) and a lot of enemies to mow down
 
 ---
 
@@ -45,12 +45,12 @@ Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/as
 - You can move through levels
 - You can climb walls
 - You can take fall damage
+- Enemies
 
 ---
 
 ## Features (TODO)
 
-- Enemies
 - Coins
   
 ### If I have time
