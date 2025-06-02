@@ -4,8 +4,9 @@ extends Node
 
 signal dashStarted()
 signal dashEnded()
-signal dashesUpdated(dashCount)
+signal dashesUpdated(dashCount: int)
 signal dashPickedUp()
+signal died()
 
 @warning_ignore_restore("unused_signal")
     

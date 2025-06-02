@@ -7,10 +7,13 @@ const DASH_FACTOR = 3
 const MAX_DASHES = 3
 var actualSpeed := SPEED
 var dashes := 3
-
+var hasDied = false
 
 func _ready() -> void:
 	SignalBus.dashPickedUp.connect(_on_dash_picked_up)
+	SignalBus.died.connect(_on_died)
+
+	
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -21,17 +24,16 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	
 	var direction := Input.get_axis("move_left", "move_right")
 	
 	if dashes > 0 and direction:
 		if Input.is_action_just_pressed("dash"):
 			updateDashes(-1)
 			actualSpeed = SPEED * DASH_FACTOR
-			$Timer.start()
+			$DashTimer.start()
 			SignalBus.dashStarted.emit()
+			#dash started is used by enemeis to check whether they hurt or they die
 
 	if direction:
 		velocity.x = direction * actualSpeed
@@ -44,6 +46,7 @@ func _physics_process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	actualSpeed = SPEED	
 	SignalBus.dashEnded.emit()
+	#tell the enemies when the dash is over
 
 func _on_dash_picked_up() -> void:
 	updateDashes(1)
@@ -51,3 +54,11 @@ func _on_dash_picked_up() -> void:
 func updateDashes(change: int) -> void:
 	dashes = clamp(dashes+change, 0, MAX_DASHES)
 	SignalBus.dashesUpdated.emit(dashes)
+	#tell the hud to update
+
+func _on_died():
+	#upward bounce when you die
+	if not hasDied:
+		velocity.y = -200
+		hasDied = true
+		#makes sure you don't keep bouncing forever
