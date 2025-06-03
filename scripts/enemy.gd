@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 
 	position.x += direction * SPEED * delta
 
-	print(checks/delta)
 	if checks/delta >= 120:
 		moveError()
 	checks = 0
