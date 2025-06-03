@@ -8,6 +8,7 @@ var canMove = true
 var checks = 0
 var forgiven = 0
 
+#TODO: add ability to kill enemies
 func _physics_process(delta: float) -> void:
 	if canMove == false:
 		return

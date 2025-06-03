@@ -13,6 +13,7 @@ var doubleJumped := false
 var canDash := true
 var mStyle = movementStyles.MOVE
 var velocityLastFrame = 0
+var score = 0 
 
 var isDashing = false
 
@@ -37,7 +38,8 @@ func _ready() -> void:
 	SignalBus.dashStarted.connect(_on_started_dash)
 	SignalBus.dashEnded.connect(_on_ended_dash)
 	SignalBus.damage.connect(_on_damage)
-	
+	SignalBus.scoreChange.connect(_on_score_change)
+	SignalBus.levelEnd.connect(_on_level_end)
 
 func _process(_delta: float) -> void:
 	if health <= 0:
@@ -125,6 +127,7 @@ func _on_died():
 		hasDied = true
 		$DeathTimer.start()
 		$CollisionShape2D.queue_free()
+		SignalBus.deaths += 1
 		#makes sure you don't keep bouncing forever
 
 func _on_start_climbing():
@@ -151,3 +154,9 @@ func _on_ended_dash():
 
 func _on_damage(damage: int):
 	health -= damage
+
+func _on_score_change(scoreChange: int):
+	score += scoreChange
+
+func _on_level_end():
+	SignalBus.displayScore.emit(score)
