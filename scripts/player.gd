@@ -45,10 +45,19 @@ func _process(_delta: float) -> void:
 	if health <= 0:
 		SignalBus.died.emit()
 	
-	if isDashing:
+	if isDashing or doubleJumped:
 		$AnimatedSprite2D.play("dash")
 	else:
 		$AnimatedSprite2D.play("default")
+	
+	if not is_on_floor() and mStyle != movementStyles.CLIMB:
+		$AnimatedSprite2D.rotate(0.2)
+		#make him rotate mid air
+	
+	if is_on_floor():
+		var rot = $AnimatedSprite2D.rotation_degrees
+		rot = round(rot/90)
+		$AnimatedSprite2D.rotation_degrees = rot*90
 
 
 func _physics_process(delta: float) -> void:

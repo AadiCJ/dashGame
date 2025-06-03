@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bu3ptkhwhye4q"]
 
 [node name="Hint" type="Label"]
+z_index = 1
 offset_right = 40.0
 offset_bottom = 16.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)

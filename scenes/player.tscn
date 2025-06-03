@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bmec34vf4myt5"]
 
-[ext_resource type="Texture2D" uid="uid://5ac2xulr6ekg" path="res://assets/sprites/tilemap-characters_packed.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://5ac2xulr6ekg" path="res://assets/sprites/tiles/tilemap-characters_packed.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://b5tucn7mf1fb4" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://bxts6n0pw54v5" path="res://scenes/hud.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://bxts6n0pw54v5" path="res://ui/hud.tscn" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("1_3vyb7")
@@ -41,6 +41,7 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dqkch")
+animation = &"dash"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
