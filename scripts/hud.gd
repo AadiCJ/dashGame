@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var heartPanel = preload("res://scenes/heart_panel.tscn")
+var heartPanel = preload("res://ui/heart_panel.tscn")
 var maxHearts = 3
 
 func _ready() -> void:

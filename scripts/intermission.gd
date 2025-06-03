@@ -69,7 +69,4 @@ func _on_display_timer_timeout() -> void:
 func _on_button_pressed() -> void:
 	var nextLevel = SignalBus.currentLevel + 1
 	var nextLevelPath = LEVEL_PATH + str(nextLevel) + ".tscn"
-	if ResourceLoader.exists(nextLevelPath):
-		get_tree().call_deferred("change_scene_to_file", nextLevelPath)
-	else:
-		print("Error in changing to next level scene") 
+	Transition.change_scene(nextLevelPath)

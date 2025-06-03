@@ -158,5 +158,5 @@ func _on_damage(damage: int):
 func _on_score_change(scoreChange: int):
 	score += scoreChange
 
-func _on_level_end():
+func _on_level_end(_currentLevel):
 	SignalBus.displayScore.emit(score)

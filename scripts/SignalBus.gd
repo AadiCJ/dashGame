@@ -15,8 +15,8 @@ func _ready() -> void:
 func getScore(scoreIn):
     score = scoreIn
 
-func levelEnded(currentLevel):
-    self.currentLevel = currentLevel
+func levelEnded(levelIn):
+    self.currentLevel = levelIn
 
 @warning_ignore_start("unused_signal")
 
