@@ -1,22 +1,6 @@
 extends Node
 
-enum scoreTypes {
-	COIN = 1,
-	ENEMY = 1,
-}
-var score = 0
-var deaths = 0
-var currentLevel = 0
 
-func _ready() -> void:
-    displayScore.connect(getScore)
-    levelEnd.connect(levelEnded)
-
-func getScore(scoreIn):
-    score = scoreIn
-
-func levelEnded(levelIn):
-    self.currentLevel = levelIn
 
 @warning_ignore_start("unused_signal")
 

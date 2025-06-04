@@ -20,7 +20,6 @@ var fallGravity: float
 var doubleJumpVelocity: float
 
 
-
 var actualSpeed := speed
 var hasDied := false
 var doubleJumped := false
@@ -98,14 +97,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, actualSpeed)
 
-	#reduce gravity on walls
-	# if is_on_wall_only():
-		# velocity += get_gravity() * delta / 2
+	
+	if is_on_wall_only():
+		velocity += get_gravity() * delta / 2
+		canJump = true
 
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
 
-		if not is_on_floor():
+		if not is_on_floor() and not is_on_wall():
 			#add gravity
 			if velocity.y < 0:
 				velocity.y += jumpGravity * delta
@@ -124,6 +124,8 @@ func _physics_process(delta: float) -> void:
 			if jumpBuffer:
 				jump()
 				jumpBuffer = false
+
+		
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
 			if canJump and is_on_floor():
@@ -188,7 +190,7 @@ func _on_died():
 		hasDied = true
 		$DeathTimer.start()
 		$CollisionShape2D.queue_free()
-		SignalBus.deaths += 1
+		Variables.deaths += 1
 		#makes sure you don't keep bouncing forever
 
 func _on_start_climbing():

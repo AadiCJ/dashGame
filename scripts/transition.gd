@@ -13,7 +13,7 @@ func change_scene(target: String) -> void:
 	$AnimationPlayer.play_backwards("fadeToBlack")
 	await $AnimationPlayer.animation_finished
 	$TextureRect.visible = false
-	SignalBus.deaths = 0
+	Variables.deaths = 0
 
 func _ready() -> void:
 	$TextureRect.visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dwvsaw4lrw101"]
+[gd_scene load_steps=12 format=4 uid="uid://dwvsaw4lrw101"]
 
 [ext_resource type="PackedScene" uid="uid://bx4q6o8h464mh" path="res://scenes/enemy.tscn" id="1_dfjjl"]
 [ext_resource type="PackedScene" uid="uid://bmec34vf4myt5" path="res://scenes/player.tscn" id="1_pqqg8"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://06eq6m5svosu" path="res://scenes/level_end.tscn" id="5_ep78u"]
 [ext_resource type="PackedScene" uid="uid://6ccequyk6cje" path="res://scenes/coin.tscn" id="6_ep78u"]
 [ext_resource type="PackedScene" uid="uid://b3h043eh5i2km" path="res://scenes/world_boundary.tscn" id="6_ilhis"]
+[ext_resource type="PackedScene" uid="uid://bu3ptkhwhye4q" path="res://ui/hint.tscn" id="9_at1ld"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ilhis"]
 texture = ExtResource("3_5722l")
@@ -58,7 +59,7 @@ sources/0 = SubResource("TileSetAtlasSource_ilhis")
 [node name="level2" type="Node"]
 
 [node name="Enemy" parent="." instance=ExtResource("1_dfjjl")]
-position = Vector2(738, -302)
+position = Vector2(787, -302)
 
 [node name="Basics" type="Node" parent="."]
 
@@ -88,3 +89,10 @@ position = Vector2(405, -206)
 
 [node name="dashPickup" parent="." instance=ExtResource("4_ilhis")]
 position = Vector2(839, -119)
+
+[node name="Hint" parent="." instance=ExtResource("9_at1ld")]
+offset_left = 610.0
+offset_top = -336.0
+offset_right = 748.0
+offset_bottom = -312.0
+text = "Dash through enemies to kill them"

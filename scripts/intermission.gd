@@ -14,8 +14,8 @@ var score = ""
 var deaths = ""
 
 func _ready() -> void:
-	score = str(SignalBus.score)
-	deaths = str(SignalBus.deaths)
+	score = str(Variables.score)
+	deaths = str(Variables.deaths)
 
 
 	var deathString = DEATHS_START + str(deaths)
@@ -67,6 +67,6 @@ func _on_display_timer_timeout() -> void:
 
 
 func _on_button_pressed() -> void:
-	var nextLevel = SignalBus.currentLevel + 1
+	var nextLevel = Variables.currentLevel + 1
 	var nextLevelPath = LEVEL_PATH + str(nextLevel) + ".tscn"
 	Transition.change_scene(nextLevelPath)

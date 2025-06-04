@@ -53,7 +53,7 @@ func moveError():
 
 func _on_body_entered(_body:Node2D) -> void:
 	if playerDashing:
-		SignalBus.scoreChange.emit(SignalBus.scoreTypes.ENEMY)
+		SignalBus.scoreChange.emit(Variables.scoreTypes.ENEMY)
 		queue_free()
 	else:
 		SignalBus.damage.emit(1)
