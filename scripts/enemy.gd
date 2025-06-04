@@ -40,10 +40,10 @@ func _physics_process(delta: float) -> void:
 	if canMove == false:
 		return
 
-	if $RayRight.is_colliding():
+	if $RayRight.is_colliding() or $RayRightPlayer.is_colliding():
 		direction = -1
 		checks += 1
-	if $RayLeft.is_colliding():
+	if $RayLeft.is_colliding() or $RayLeftPlayer.is_colliding():
 		direction = 1
 		checks += 1
 	if not $RayLeftDown.is_colliding():
