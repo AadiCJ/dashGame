@@ -96,3 +96,6 @@ offset_top = -336.0
 offset_right = 748.0
 offset_bottom = -312.0
 text = "Dash through enemies to kill them"
+
+[node name="dashPickup2" parent="." instance=ExtResource("4_ilhis")]
+position = Vector2(634, -299)

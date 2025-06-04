@@ -7,6 +7,8 @@ const MAX_DASHES := 3
 
 var jumpPeakTime := 0.35
 var jumpFallTime := 0.25
+var jumpGravity: float = get_gravity().y
+var gravityModulation = 1
 
 #18 is one block
 var jumpHeight := 54
@@ -15,7 +17,6 @@ var jumpDistance := 108
 
 var speed: float 
 var jumpVelocity: float
-var jumpGravity: float = get_gravity().y
 var fallGravity: float
 var doubleJumpVelocity: float
 
@@ -99,18 +100,18 @@ func _physics_process(delta: float) -> void:
 
 	
 	if is_on_wall_only():
-		velocity += get_gravity() * delta / 2
-		canJump = true
+		gravityModulation = 0.5
 
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
 
-		if not is_on_floor() and not is_on_wall():
+		if not is_on_floor():
 			#add gravity
+			canJump = false
 			if velocity.y < 0:
-				velocity.y += jumpGravity * delta
+				velocity.y += (jumpGravity * delta)/gravityModulation
 			else:
-				velocity.y += fallGravity * delta
+				velocity.y += (fallGravity * delta)
 			#double jump handling
 			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
 				and not doubleJumped and dashes > 0 and not hasDied):
@@ -120,15 +121,17 @@ func _physics_process(delta: float) -> void:
 				velocity.y = doubleJumpVelocity
 		else:
 			#is on floor
+			gravityModulation = 1
 			canJump = true
 			if jumpBuffer:
 				jump()
 				jumpBuffer = false
+		
 
 		
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
-			if canJump and is_on_floor():
+			if canJump or is_on_wall():
 				jump()
 			elif not is_on_floor():
 				jumpBuffer = true
