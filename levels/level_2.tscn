@@ -96,10 +96,10 @@ position = Vector2(727, -117)
 [node name="Coin2" parent="Coins" instance=ExtResource("6_ep78u")]
 position = Vector2(405, -206)
 
-[node name="pickups" type="Node" parent="."]
+[node name="Pickups" type="Node" parent="."]
 
-[node name="dashPickup" parent="pickups" instance=ExtResource("4_ilhis")]
+[node name="dashPickup" parent="Pickups" instance=ExtResource("4_ilhis")]
 position = Vector2(839, -119)
 
-[node name="dashPickup2" parent="pickups" instance=ExtResource("4_ilhis")]
+[node name="dashPickup2" parent="Pickups" instance=ExtResource("4_ilhis")]
 position = Vector2(634, -299)
