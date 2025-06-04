@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://6ccequyk6cje"]
+[gd_scene load_steps=8 format=3 uid="uid://6ccequyk6cje"]
 
 [ext_resource type="Script" uid="uid://b638a6d488wdv" path="res://scripts/coin.gd" id="1_i64fm"]
-[ext_resource type="Texture2D" uid="uid://3a1k33kfl52x" path="res://assets/sprites/tilemap_packed.png" id="1_rwqht"]
+[ext_resource type="Texture2D" uid="uid://3a1k33kfl52x" path="res://assets/sprites/tiles/tilemap_packed.png" id="1_rwqht"]
+[ext_resource type="AudioStream" uid="uid://dc0h8v6d140qw" path="res://assets/sfx/coin.wav" id="3_11l1o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i64fm"]
 atlas = ExtResource("1_rwqht")
@@ -38,4 +39,13 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1ikuy")
 
+[node name="CoinAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_11l1o")
+bus = &"SFX"
+
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_timeout"]

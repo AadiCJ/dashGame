@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0w6vn8fgqvbj"]
+[gd_scene load_steps=8 format=3 uid="uid://b0w6vn8fgqvbj"]
 
 [ext_resource type="Script" uid="uid://cgviepjoa4c1k" path="res://scripts/transition.gd" id="1_rerct"]
+[ext_resource type="AudioStream" uid="uid://cck56lrul1gj1" path="res://assets/sfx/clear.wav" id="2_71j1v"]
 
 [sub_resource type="Gradient" id="Gradient_kg4ax"]
 interpolation_mode = 1
@@ -65,3 +66,7 @@ texture = SubResource("GradientTexture2D_rerct")
 libraries = {
 &"": SubResource("AnimationLibrary_xmi56")
 }
+
+[node name="EndAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_71j1v")
+bus = &"SFX"

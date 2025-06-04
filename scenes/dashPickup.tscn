@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://r26blq5dvq7q"]
+[gd_scene load_steps=6 format=3 uid="uid://r26blq5dvq7q"]
 
 [ext_resource type="Script" uid="uid://dg08qteva4id8" path="res://scripts/dash_pickup.gd" id="1_5tdg5"]
 [ext_resource type="Texture2D" uid="uid://3a1k33kfl52x" path="res://assets/sprites/tiles/tilemap_packed.png" id="1_ngnwi"]
+[ext_resource type="AudioStream" uid="uid://dhi7x8apwju65" path="res://assets/sfx/pickup.wav" id="3_8crcj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5tdg5"]
 atlas = ExtResource("1_ngnwi")
@@ -28,4 +29,12 @@ sprite_frames = SubResource("SpriteFrames_8crcj")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-5, -6, -7, -4, -7, 1, 0, 7, 7, 1, 7, -4, 5, -6)
 
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="PickupAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_8crcj")
+bus = &"SFX"
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_timeout"]

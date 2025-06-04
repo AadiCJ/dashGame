@@ -18,6 +18,7 @@ func change_scene(target: String) -> void:
 
 
 func toIntermission() -> void:
+	$EndAudio.play()
 	$TextureRect.visible = true
 	$AnimationPlayer.play("fadeToBlack")
 	await $AnimationPlayer.animation_finished

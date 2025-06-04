@@ -67,7 +67,7 @@ size = Vector2(8, 120)
 position = Vector2(755, -341)
 
 [node name="Player" parent="Basics" instance=ExtResource("2_kx6l7")]
-position = Vector2(-17, -11)
+position = Vector2(35, -8)
 
 [node name="WorldBoundary" parent="Basics" instance=ExtResource("5_btoec")]
 position = Vector2(3, 101)

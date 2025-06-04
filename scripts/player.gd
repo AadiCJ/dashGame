@@ -34,6 +34,7 @@ var score = 0
 var jumpBuffer := false
 var isDashing = false
 var canJump = true
+var canMove = true
 
 var dashes := MAX_DASHES:
 	set(value):
@@ -43,6 +44,8 @@ var dashes := MAX_DASHES:
 
 var health = 3:
 	set(value):
+		if value < health:
+			$HurtAudio.play()
 		health = value
 		SignalBus.healthUpdated.emit(health)
 
@@ -55,6 +58,9 @@ func calcMovement() -> void:
 	speed = jumpDistance/(jumpPeakTime+jumpFallTime)
 	actualSpeed = speed
 	doubleJumpVelocity = -1 * speed * JUMP_FACTOR
+	Variables.fallGravity = fallGravity
+	Variables.jumpGravity = jumpGravity
+	Variables.jumpVelocity = jumpVelocity
 
 
 
@@ -69,6 +75,8 @@ func _ready() -> void:
 	SignalBus.damage.connect(_on_damage)
 	SignalBus.scoreChange.connect(_on_score_change)
 	SignalBus.levelEnd.connect(_on_level_end)
+
+
 
 func _process(_delta: float) -> void:
 	if health <= 0:
@@ -93,6 +101,8 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if not canMove:
+		return
 	canDash = true
 	#horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
@@ -109,25 +119,26 @@ func _physics_process(delta: float) -> void:
 		#check if we're moving or climbing
 
 		if not is_on_floor():
-			#add gravity
 			canJump = false
+
+			if not $CoyoteTimer.is_stopped():
+				if Input.is_action_just_pressed("jump"):
+					jump(false)
+
+			#add gravity
 			if velocity.y < 0:
 				velocity.y += (jumpGravity * delta)/gravityModulation
 			else:
 				velocity.y += (fallGravity * delta)*gravityModulation
 			#double jump handling
-			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
-				and not doubleJumped and dashes > 0 and not hasDied):
-				dashes -= 1
-				canDash = false
-				doubleJumped = true
-				velocity.y = doubleJumpVelocity
+			if canDoubleJump():
+				jump(true)
 		else:
 			#is on floor
 			gravityModulation = 1
 			canJump = true
 			if jumpBuffer:
-				jump()
+				jump(false)
 				jumpBuffer = false
 		
 
@@ -135,7 +146,7 @@ func _physics_process(delta: float) -> void:
 		# Handle jump.
 		if Input.is_action_just_pressed("jump"):
 			if canJump or is_on_wall():
-				jump()
+				jump(false)
 			elif not is_on_floor():
 				jumpBuffer = true
 				$JumpBufferTimer.start()
@@ -166,7 +177,9 @@ func _physics_process(delta: float) -> void:
 	
 	velocityLastFrame = velocity.y
 	var was_on_floor = is_on_floor()
+
 	move_and_slide()
+
 	if was_on_floor and not is_on_floor() and velocity.y >= 0:
 		#if transitioned from being on the floor to not
 		#and if not moving upwards
@@ -174,9 +187,19 @@ func _physics_process(delta: float) -> void:
 
 
 
-func jump():
-	velocity.y -= jumpVelocity
+func jump(doubleJump: bool):
+	if doubleJump:
+		velocity.y = doubleJumpVelocity
+		canDash = false
+		dashes -= 1
+		doubleJumped = true
+	else:
+		velocity.y -= jumpVelocity
 	canJump = false
+	$JumpAudio.play()
+
+func canDoubleJump():
+	return Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") and not doubleJumped and dashes > 0 and not hasDied
 
 
 
@@ -196,6 +219,7 @@ func _on_died():
 		hasDied = true
 		$DeathTimer.start()
 		$CollisionShape2D.queue_free()
+		$DeathAudio.play()
 		Variables.deaths += 1
 		#makes sure you don't keep bouncing forever
 
@@ -216,6 +240,7 @@ func _on_death_timer_timeout() -> void:
 
 
 func _on_started_dash():
+	$DashAudio.play()
 	isDashing = true
 
 func _on_ended_dash():
@@ -229,6 +254,7 @@ func _on_score_change(scoreChange: int):
 
 func _on_level_end(_currentLevel):
 	SignalBus.displayScore.emit(score)
+	canMove = false
 
 
 func _on_jump_buffer_timer_timeout() -> void:

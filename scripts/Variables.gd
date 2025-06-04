@@ -8,6 +8,9 @@ enum scoreTypes {
 var score = 0
 var deaths = 0
 var currentLevel = 0
+var fallGravity = 0
+var jumpGravity = 0
+var jumpVelocity = 0
 
 
 

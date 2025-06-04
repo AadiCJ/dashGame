@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx4q6o8h464mh"]
+[gd_scene load_steps=7 format=3 uid="uid://bx4q6o8h464mh"]
 
 [ext_resource type="Texture2D" uid="uid://5ac2xulr6ekg" path="res://assets/sprites/tiles/tilemap-characters_packed.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://dw3amu7eoc2yk" path="res://scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="AudioStream" uid="uid://b2tt2vqt8d8k4" path="res://assets/sfx/hit.wav" id="3_4ra3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]
 atlas = ExtResource("1_7p1mj")
@@ -25,16 +26,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="CharacterBody2D"]
 z_index = 1
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5uy6h")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, -9, -8, -6, -8, 3, 0, 12, 8, 3, 8, -6)
+autoplay = "default"
+frame = 1
+frame_progress = 0.989796
 
 [node name="RayRight" type="RayCast2D" parent="."]
 target_position = Vector2(11, 0)
@@ -54,5 +56,17 @@ target_position = Vector2(0, 25)
 wait_time = 0.1
 autostart = true
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="CheckTimer" to="." method="_on_check_timer_timeout"]
+[node name="KillAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_4ra3w")
+bus = &"SFX"
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 1.6
+
+[node name="CollisionArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CollisionArea"]
+polygon = PackedVector2Array(0, -9, -8, -6, -8, 3, 0, 12, 8, 3, 8, -6)
+
+[connection signal="timeout" from="KillTimer" to="." method="_on_timeout"]
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_body_entered"]
