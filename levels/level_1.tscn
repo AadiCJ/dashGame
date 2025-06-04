@@ -61,43 +61,6 @@ size = Vector2(8, 120)
 
 [node name="Level1" type="Node"]
 
-[node name="doubleJump" parent="." instance=ExtResource("4_kx6l7")]
-offset_left = 449.0
-offset_top = -44.0
-offset_right = 579.0
-offset_bottom = -25.0
-text = "Try dashing mid air 
-(while holding jump)"
-
-[node name="ladderHint" parent="." instance=ExtResource("4_kx6l7")]
-offset_left = 475.0
-offset_top = -157.0
-offset_right = 605.0
-offset_bottom = -138.0
-text = "self explanatory"
-
-[node name="wallJumpHint" parent="." instance=ExtResource("4_kx6l7")]
-offset_left = 522.0
-offset_top = -317.0
-offset_right = 665.0
-offset_bottom = -298.0
-text = "You are also descended
-from a spider"
-
-[node name="dashPickupHint" parent="." instance=ExtResource("4_kx6l7")]
-offset_left = 259.0
-offset_top = -49.0
-offset_right = 395.0
-offset_bottom = -33.0
-text = "You can pickup dashes"
-
-[node name="dashHint" parent="." instance=ExtResource("4_kx6l7")]
-offset_left = 63.0
-offset_top = -45.0
-offset_right = 148.0
-offset_bottom = -29.0
-text = "Shift to dash."
-
 [node name="Basics" type="Node" parent="."]
 
 [node name="levelEnd" parent="Basics" instance=ExtResource("5_n46q3")]
@@ -128,11 +91,52 @@ position = Vector2(602, -138)
 position = Vector2(1, -12)
 shape = SubResource("RectangleShape2D_l53as")
 
-[node name="Coin" parent="." instance=ExtResource("8_l53as")]
+[node name="hints" type="Node" parent="."]
+
+[node name="doubleJump" parent="hints" instance=ExtResource("4_kx6l7")]
+offset_left = 449.0
+offset_top = -44.0
+offset_right = 579.0
+offset_bottom = -25.0
+text = "Try dashing mid air 
+(while holding jump)"
+
+[node name="ladderHint" parent="hints" instance=ExtResource("4_kx6l7")]
+offset_left = 475.0
+offset_top = -157.0
+offset_right = 605.0
+offset_bottom = -138.0
+text = "self explanatory"
+
+[node name="wallJumpHint" parent="hints" instance=ExtResource("4_kx6l7")]
+offset_left = 522.0
+offset_top = -317.0
+offset_right = 665.0
+offset_bottom = -298.0
+text = "You are also descended
+from a spider"
+
+[node name="dashPickupHint" parent="hints" instance=ExtResource("4_kx6l7")]
+offset_left = 259.0
+offset_top = -49.0
+offset_right = 395.0
+offset_bottom = -33.0
+text = "You can pickup dashes"
+
+[node name="dashHint" parent="hints" instance=ExtResource("4_kx6l7")]
+offset_left = 63.0
+offset_top = -45.0
+offset_right = 148.0
+offset_bottom = -29.0
+text = "Shift to dash."
+
+[node name="coins" type="Node" parent="."]
+
+[node name="Coin" parent="coins" instance=ExtResource("8_l53as")]
 position = Vector2(553, -99)
 
-[node name="Coin2" parent="." instance=ExtResource("8_l53as")]
+[node name="Coin2" parent="coins" instance=ExtResource("8_l53as")]
 position = Vector2(642, -208)
 
-[node name="Coin3" parent="." instance=ExtResource("8_l53as")]
+[node name="Coin3" parent="coins" instance=ExtResource("8_l53as")]
 position = Vector2(712, -352)

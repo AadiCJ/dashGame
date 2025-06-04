@@ -8,6 +8,9 @@ const MAX_DASHES := 3
 var jumpPeakTime := 0.35
 var jumpFallTime := 0.25
 var jumpGravity: float = get_gravity().y
+
+#proportional to increase in jump gravity
+#and reduction in fall gravity
 var gravityModulation = 1
 
 #18 is one block
@@ -100,7 +103,7 @@ func _physics_process(delta: float) -> void:
 
 	
 	if is_on_wall_only():
-		gravityModulation = 0.5
+		gravityModulation = 0.6
 
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
@@ -111,7 +114,7 @@ func _physics_process(delta: float) -> void:
 			if velocity.y < 0:
 				velocity.y += (jumpGravity * delta)/gravityModulation
 			else:
-				velocity.y += (fallGravity * delta)
+				velocity.y += (fallGravity * delta)*gravityModulation
 			#double jump handling
 			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
 				and not doubleJumped and dashes > 0 and not hasDied):

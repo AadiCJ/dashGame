@@ -81,15 +81,6 @@ tile_set = ExtResource("2_0srwa")
 [node name="WorldBoundary" parent="Basics" instance=ExtResource("6_ilhis")]
 position = Vector2(3, 101)
 
-[node name="Coin" parent="." instance=ExtResource("6_ep78u")]
-position = Vector2(727, -117)
-
-[node name="Coin2" parent="." instance=ExtResource("6_ep78u")]
-position = Vector2(405, -206)
-
-[node name="dashPickup" parent="." instance=ExtResource("4_ilhis")]
-position = Vector2(839, -119)
-
 [node name="Hint" parent="." instance=ExtResource("9_at1ld")]
 offset_left = 610.0
 offset_top = -336.0
@@ -97,5 +88,18 @@ offset_right = 748.0
 offset_bottom = -312.0
 text = "Dash through enemies to kill them"
 
-[node name="dashPickup2" parent="." instance=ExtResource("4_ilhis")]
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("6_ep78u")]
+position = Vector2(727, -117)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("6_ep78u")]
+position = Vector2(405, -206)
+
+[node name="pickups" type="Node" parent="."]
+
+[node name="dashPickup" parent="pickups" instance=ExtResource("4_ilhis")]
+position = Vector2(839, -119)
+
+[node name="dashPickup2" parent="pickups" instance=ExtResource("4_ilhis")]
 position = Vector2(634, -299)
