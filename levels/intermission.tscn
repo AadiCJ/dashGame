@@ -1,9 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3rrt80jc2vwl"]
+[gd_scene load_steps=7 format=3 uid="uid://c3rrt80jc2vwl"]
 
 [ext_resource type="Script" uid="uid://cx7a4w6hkl7kr" path="res://scripts/intermission.gd" id="1_f60dt"]
 
-[node name="Intermission" type="Node2D"]
+[sub_resource type="Gradient" id="Gradient_f60dt"]
+interpolation_mode = 1
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xc1pb"]
+gradient = SubResource("Gradient_f60dt")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f60dt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xc1pb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.299547, 0.299547, 0.299547, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugy6t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Intermission" type="CanvasLayer"]
 script = ExtResource("1_f60dt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 62.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_xc1pb")
 
 [node name="DisplayTimer" type="Timer" parent="."]
 wait_time = 0.05
@@ -14,10 +44,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 436.0
-offset_top = 234.0
-offset_right = 704.0
-offset_bottom = 409.0
+offset_left = -134.0
+offset_top = -87.5
+offset_right = 134.0
+offset_bottom = 87.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -26,7 +56,9 @@ size_flags_vertical = 4
 [node name="NextLevelButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Next Level"
+theme_override_styles/focus = SubResource("StyleBoxFlat_f60dt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xc1pb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ugy6t")
 
 [connection signal="timeout" from="DisplayTimer" to="." method="_on_display_timer_timeout"]
 [connection signal="pressed" from="VBoxContainer/NextLevelButton" to="." method="_on_button_pressed"]

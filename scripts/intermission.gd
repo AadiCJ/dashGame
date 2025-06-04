@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 const SCORE_START = "Score: "
 const DEATHS_START = "Deaths: "
@@ -12,6 +12,7 @@ var length := 0
 var toDisplay = {}
 var score = ""
 var deaths = ""
+@onready var button = $VBoxContainer/NextLevelButton
 
 func _ready() -> void:
 	score = str(Variables.score)
@@ -34,16 +35,21 @@ func _ready() -> void:
 
 	for dict in toDisplay:
 		#add labels for everthing we need to display
-		var child = Label.new()	
+		var child = Label.new()
 		child.align = 1
 		child.valign = 1
 		child.add_theme_font_size_override("font_size", 32)
 		dict["object"] = child
 		$VBoxContainer.add_child(child)
-	
+
 	for child in $VBoxContainer.get_children():
 		if is_instance_of(child, Button):
 			$VBoxContainer.move_child(child, -1)
+	
+	toDisplay.append({
+		"value": "Next Level",
+		"object": button
+	})
 
 	$DisplayTimer.start()
 

@@ -1,11 +1,12 @@
 extends CanvasLayer
 
 
+const INTERMISSION_PATH = "res://levels/intermission.tscn"
+
+
 func change_scene(target: String) -> void:
 	#TODO: disable player movement
 	$TextureRect.visible = true
-	$AnimationPlayer.play("fadeToBlack")
-	await $AnimationPlayer.animation_finished
 	if ResourceLoader.exists(target):
 		get_tree().call_deferred("change_scene_to_file", target)
 	else:
@@ -14,6 +15,15 @@ func change_scene(target: String) -> void:
 	await $AnimationPlayer.animation_finished
 	$TextureRect.visible = false
 	Variables.deaths = 0
+
+
+func toIntermission() -> void:
+	$TextureRect.visible = true
+	$AnimationPlayer.play("fadeToBlack")
+	await $AnimationPlayer.animation_finished
+	get_tree().call_deferred("change_scene_to_file", INTERMISSION_PATH)
+	$TextureRect.visible = false
+
 
 func _ready() -> void:
 	$TextureRect.visible = false

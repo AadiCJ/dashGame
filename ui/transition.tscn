@@ -11,6 +11,21 @@ gradient = SubResource("Gradient_kg4ax")
 fill_from = Vector2(0, 0.5)
 fill_to = Vector2(1, 0.5)
 
+[sub_resource type="Animation" id="Animation_px735"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:texture:fill_to")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 0.5)]
+}
+
 [sub_resource type="Animation" id="Animation_f0i4t"]
 resource_name = "fadeToBlack"
 length = 0.5
@@ -27,21 +42,6 @@ tracks/0/keys = {
 "values": [Vector2(0.01, 0.5), Vector2(1, 0.5)]
 }
 
-[sub_resource type="Animation" id="Animation_px735"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:texture:fill_to")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 0.5)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xmi56"]
 _data = {
 &"RESET": SubResource("Animation_px735"),
@@ -55,6 +55,8 @@ script = ExtResource("1_rerct")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 80.0
+offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_rerct")
