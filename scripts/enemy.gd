@@ -5,8 +5,20 @@ const DAMAGE = 1
 const SPEED = 80
 var direction = 1
 var canMove = true
+var playerDashing = false
 var checks = 0
 var forgiven = 0
+
+func _ready() -> void:
+	SignalBus.dashStarted.connect(dashStart)
+	SignalBus.dashEnded.connect(dashEnd)
+
+func dashStart():
+	playerDashing = true
+
+func dashEnd():
+	playerDashing = false
+
 
 #TODO: add ability to kill enemies
 func _physics_process(delta: float) -> void:
@@ -40,4 +52,8 @@ func moveError():
 
 
 func _on_body_entered(_body:Node2D) -> void:
-	SignalBus.damage.emit(1)
+	if playerDashing:
+		SignalBus.scoreChange.emit(SignalBus.scoreTypes.ENEMY)
+		queue_free()
+	else:
+		SignalBus.damage.emit(1)

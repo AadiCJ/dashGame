@@ -1,25 +1,40 @@
 extends CharacterBody2D
 
 
-const SPEED := 130.0
-const JUMP_VELOCITY := -200.0
 const DASH_FACTOR := 3.5		
+const JUMP_FACTOR := 2
 const MAX_DASHES := 3
-const DOUBLE_JUMP_VELOCITY = -1 * SPEED * DASH_FACTOR
 
-var actualSpeed := SPEED
+var jumpPeakTime := 0.35
+var jumpFallTime := 0.25
+
+#18 is one block
+var jumpHeight := 54
+var jumpDistance := 108
+
+
+var speed: float 
+var jumpVelocity: float
+var jumpGravity: float = get_gravity().y
+var fallGravity: float
+var doubleJumpVelocity: float
+
+
+
+var actualSpeed := speed
 var hasDied := false
 var doubleJumped := false
 var canDash := true
 var mStyle = movementStyles.MOVE
 var velocityLastFrame = 0
 var score = 0 
-
+var jumpBuffer := false
 var isDashing = false
+var canJump = true
 
-var dashes := 3:
+var dashes := MAX_DASHES:
 	set(value):
-		dashes = clamp(value, 0, 3)
+		dashes = clamp(value, 0, MAX_DASHES)
 		SignalBus.dashesUpdated.emit(dashes)
 
 
@@ -30,7 +45,18 @@ var health = 3:
 
 
 
+func calcMovement() -> void:
+	jumpGravity = (2*jumpHeight)/pow(jumpPeakTime, 2)
+	fallGravity = (2*jumpHeight)/pow(jumpFallTime, 2)
+	jumpVelocity = jumpGravity * jumpPeakTime
+	speed = jumpDistance/(jumpPeakTime+jumpFallTime)
+	actualSpeed = speed
+	doubleJumpVelocity = -1 * speed * JUMP_FACTOR
+
+
+
 func _ready() -> void:
+	calcMovement()
 	SignalBus.dashPickedUp.connect(_on_dash_picked_up)
 	SignalBus.died.connect(_on_died)
 	SignalBus.isClimbing.connect(_on_start_climbing)
@@ -60,6 +86,9 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.rotation_degrees = rot*90
 
 
+
+
+
 func _physics_process(delta: float) -> void:
 	canDash = true
 	#horizontal movement
@@ -69,28 +98,39 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, actualSpeed)
 
-	if is_on_wall_only():
-		velocity += get_gravity() * delta / 2 #reduce gravity to slide
+	#reduce gravity on walls
+	# if is_on_wall_only():
+		# velocity += get_gravity() * delta / 2
 
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
 
 		if not is_on_floor():
 			#add gravity
-			if not is_on_wall():
-				velocity += get_gravity() * delta
+			if velocity.y < 0:
+				velocity.y += jumpGravity * delta
+			else:
+				velocity.y += fallGravity * delta
 			#double jump handling
 			if (Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") 
 				and not doubleJumped and dashes > 0 and not hasDied):
 				dashes -= 1
 				canDash = false
 				doubleJumped = true
-				velocity.y = DOUBLE_JUMP_VELOCITY
-
+				velocity.y = doubleJumpVelocity
+		else:
+			#is on floor
+			canJump = true
+			if jumpBuffer:
+				jump()
+				jumpBuffer = false
 		# Handle jump.
-		if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
-			#don't need to check if he's alive here, since collider is removed on death
-			velocity.y = JUMP_VELOCITY
+		if Input.is_action_just_pressed("jump"):
+			if canJump and is_on_floor():
+				jump()
+			elif not is_on_floor():
+				jumpBuffer = true
+				$JumpBufferTimer.start()
 
 
 		#TODO: make dashes work on double pressed of inputs
@@ -98,30 +138,42 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("dash"):
 				canDash = false
 				dashes -= 1
-				actualSpeed = SPEED * DASH_FACTOR
+				actualSpeed = speed * DASH_FACTOR
 				$DashTimer.start()
 				SignalBus.dashStarted.emit()
 				#dash started is used by enemeis to check whether they hurt or they die
 
 		if is_on_floor():
 			doubleJumped = false
-			if velocityLastFrame > abs(JUMP_VELOCITY + DOUBLE_JUMP_VELOCITY) - 100:
+			if velocityLastFrame > jumpFallTime * fallGravity + abs(doubleJumpVelocity) :
 				health -= 1
 		
 	elif mStyle == movementStyles.CLIMB:
 		direction = Input.get_axis("jump", "move_down")
 		#climbing movement
 		if direction and not hasDied:
-			velocity.y = direction * SPEED
+			velocity.y = direction * speed
 		else:
 			velocity.y = move_toward(velocity.y, 0, actualSpeed)		
 	
 	velocityLastFrame = velocity.y
+	var was_on_floor = is_on_floor()
 	move_and_slide()
+	if was_on_floor and not is_on_floor() and velocity.y >= 0:
+		#if transitioned from being on the floor to not
+		#and if not moving upwards
+		$CoyoteTimer.start()
+
+
+
+func jump():
+	velocity.y -= jumpVelocity
+	canJump = false
+
 
 
 func _on_dash_timer_timeout() -> void:
-	actualSpeed = SPEED	
+	actualSpeed = speed	
 	SignalBus.dashEnded.emit()
 	#tell the enemies when the dash is over
 
@@ -132,7 +184,7 @@ func _on_died():
 	#upward bounce when you die
 	if not hasDied:
 		health = 0
-		velocity.y = -200
+		velocity.y = -jumpVelocity
 		hasDied = true
 		$DeathTimer.start()
 		$CollisionShape2D.queue_free()
@@ -169,3 +221,7 @@ func _on_score_change(scoreChange: int):
 
 func _on_level_end(_currentLevel):
 	SignalBus.displayScore.emit(score)
+
+
+func _on_jump_buffer_timer_timeout() -> void:
+	jumpBuffer = false

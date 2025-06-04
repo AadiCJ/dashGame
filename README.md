@@ -45,13 +45,17 @@ Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/as
 - You can move through levels
 - You can climb walls
 - You can take fall damage
-- Enemies
+- Enemies (you can kill)
+- Coins
+- Score System
+- Jump Buffering
+- Coyote Time
 
 ---
 
 ## Features (TODO)
 
-- Coins
+- More levels
   
 ### If I have time
 
