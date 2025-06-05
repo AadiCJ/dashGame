@@ -11,7 +11,8 @@ var currentLevel = 0
 var fallGravity = 0
 var jumpGravity = 0
 var jumpVelocity = 0
-
+var isMobile = OS.has_feature("mobile")
+@export var maxHealth = 3
 
 
 func _ready() -> void:

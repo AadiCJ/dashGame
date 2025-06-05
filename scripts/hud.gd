@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var heartPanel = preload("res://ui/heart_panel.tscn")
-var maxHearts = 3
+var maxHearts = Variables.maxHealth 
 
 func _ready() -> void:
 	SignalBus.dashesUpdated.connect(_on_dashes_updated)

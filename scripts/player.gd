@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const DASH_FACTOR := 3.5		
 const JUMP_FACTOR := 2
-const MAX_DASHES := 3
+const MAX_DASHES := 10
 
 var jumpPeakTime := 0.35
 var jumpFallTime := 0.25
@@ -22,8 +22,7 @@ var speed: float
 var jumpVelocity: float
 var fallGravity: float
 var doubleJumpVelocity: float
-var isMobile = false
-
+var isMobile = Variables.isMobile
 
 var actualSpeed := speed
 var hasDied := false
@@ -43,7 +42,7 @@ var dashes := MAX_DASHES:
 		SignalBus.dashesUpdated.emit(dashes)
 
 
-var health = 3:
+var health = Variables.maxHealth:
 	set(value):
 		if value < health:
 			$HurtAudio.play()
@@ -218,7 +217,7 @@ func canDoubleJump():
 
 func _on_dash_timer_timeout() -> void:
 	actualSpeed = speed	
-	SignalBus.dashEnded.emit()
+	$DashEndTimer.start()
 	#tell the enemies when the dash is over
 
 func _on_dash_picked_up() -> void:
@@ -281,3 +280,7 @@ func dash(direction) -> void:
 	SignalBus.dashStarted.emit()
 	#dash started is used by enemeis to check whether they hurt or they die
 				
+
+
+func _on_dash_end_timer_timeout() -> void:
+	SignalBus.dashEnded.emit()
