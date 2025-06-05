@@ -5,7 +5,6 @@ const INTERMISSION_PATH = "res://levels/intermission.tscn"
 
 
 func change_scene(target: String) -> void:
-	#TODO: disable player movement
 	$TextureRect.visible = true
 	if ResourceLoader.exists(target):
 		get_tree().call_deferred("change_scene_to_file", target)

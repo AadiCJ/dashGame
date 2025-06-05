@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bppi13errisx4"
-path="res://.godot/imported/death.wav-35f382efb5bef8a544165b5ab2f1779e.sample"
+uid="uid://dc0h8v6d140qw"
+path="res://.godot/imported/coin.wav-d6537d7e7bb15ff209fc1b385e8b8b35.sample"
 
 [deps]
 
-source_file="res://assets/sfx/death.wav"
-dest_files=["res://.godot/imported/death.wav-35f382efb5bef8a544165b5ab2f1779e.sample"]
+source_file="res://assets/sounds/sfx/coin.wav"
+dest_files=["res://.godot/imported/coin.wav-d6537d7e7bb15ff209fc1b385e8b8b35.sample"]
 
 [params]
 

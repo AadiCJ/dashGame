@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SignalBus="*res://scripts/SignalBus.gd"
 Transition="*res://ui/transition.tscn"
 Variables="*res://scripts/Variables.gd"
+MusicPlayer="*res://ui/music_player.tscn"
 
 [gui]
 

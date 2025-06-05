@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 
+@export var canMove = true
 const DAMAGE = 1
 const SPEED = 80
 var direction = 1
-var canMove = true
 var playerDashing = false
 var applyGravity = false
 var checks = 0
@@ -28,7 +28,6 @@ func _process(_delta: float) -> void:
 		$AnimatedSprite2D.flip_h = false
 
 
-#TODO: add ability to kill enemies
 func _physics_process(delta: float) -> void:
 	if applyGravity:
 		if velocity.y < 0:
