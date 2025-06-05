@@ -7,8 +7,8 @@ You have a few dashes, a lot of ingenuinety (for a square) and a lot of enemies 
 
 ## About the Game
 
-**Dash Game** is a simple platformer game where everythine depends on your dash
-Increased mobility and attacking, both contained in the single mechanic.
+**Dash Game** is a simple platformer game where everything depends on your dash.
+Increased mobility, and attacking, both contained in a single mechanic.
 
 ---
 
