@@ -31,6 +31,8 @@ The levels are all designed by my girlfriend (except the tutorial one).
 Character and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
 Background assets taken from  [Brackey's Platformer Bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle)
 Android movement keys made by me.
+Music taken from [pixabay](https://pixabay.com/sound-effects/8bit-music-for-game-68698/)
+SFX taken from [freesound](https://freesound.org/)
 
 ---
 
