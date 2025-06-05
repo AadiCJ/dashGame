@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxts6n0pw54v5"]
+[gd_scene load_steps=7 format=3 uid="uid://bxts6n0pw54v5"]
 
 [ext_resource type="Script" uid="uid://3fiulyryar34" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="Texture2D" uid="uid://cvnkl248ndr6s" path="res://assets/sprites/ui/arrow_keys.png" id="2_276te"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_546lt"]
+atlas = ExtResource("2_276te")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ihmi"]
+atlas = ExtResource("2_276te")
+region = Rect2(18, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_en2x2"]
+atlas = ExtResource("2_276te")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v5rv"]
+atlas = ExtResource("2_276te")
+region = Rect2(35, 0, 16, 16)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_ahhtf")
@@ -21,3 +38,34 @@ offset_bottom = 190.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
+
+[node name="MobileControler" type="CanvasLayer" parent="."]
+
+[node name="LeftButton" type="TouchScreenButton" parent="."]
+position = Vector2(60, 537)
+scale = Vector2(5, 5)
+texture_normal = SubResource("AtlasTexture_546lt")
+action = "move_left"
+visibility_mode = 1
+
+[node name="UpButton" type="TouchScreenButton" parent="."]
+position = Vector2(158, 448)
+scale = Vector2(5, 5)
+texture_normal = SubResource("AtlasTexture_7ihmi")
+action = "jump"
+visibility_mode = 1
+
+[node name="RightButton" type="TouchScreenButton" parent="."]
+position = Vector2(330, 620)
+rotation = -3.14159
+scale = Vector2(5, 5)
+texture_normal = SubResource("AtlasTexture_en2x2")
+action = "move_right"
+visibility_mode = 1
+
+[node name="DashButton" type="TouchScreenButton" parent="."]
+position = Vector2(1028, 520)
+scale = Vector2(5, 5)
+texture_normal = SubResource("AtlasTexture_1v5rv")
+action = "dash"
+visibility_mode = 1
