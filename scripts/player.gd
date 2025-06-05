@@ -68,8 +68,6 @@ func _ready() -> void:
 	calcMovement()
 	SignalBus.dashPickedUp.connect(_on_dash_picked_up)
 	SignalBus.died.connect(_on_died)
-	SignalBus.isClimbing.connect(_on_start_climbing)
-	SignalBus.stoppedClimbing.connect(_on_stopped_climbing)
 	SignalBus.dashStarted.connect(_on_started_dash)
 	SignalBus.dashEnded.connect(_on_ended_dash)
 	SignalBus.damage.connect(_on_damage)
@@ -101,8 +99,13 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	mStyle = movementStyles.MOVE
 	if not canMove:
 		return
+	
+	if $RayLadder.get_collider():
+		mStyle = movementStyles.CLIMB
+	
 	canDash = true
 	#horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
@@ -140,7 +143,6 @@ func _physics_process(delta: float) -> void:
 			if jumpBuffer:
 				jump(false)
 				jumpBuffer = false
-		
 
 		
 		# Handle jump.
@@ -153,14 +155,10 @@ func _physics_process(delta: float) -> void:
 
 
 		#TODO: make dashes work on double pressed of inputs
-		if dashes > 0 and direction and canDash:
-			if Input.is_action_just_pressed("dash"):
-				canDash = false
-				dashes -= 1
-				actualSpeed = speed * DASH_FACTOR
-				$DashTimer.start()
-				SignalBus.dashStarted.emit()
-				#dash started is used by enemeis to check whether they hurt or they die
+		if Input.is_action_just_pressed("dash"):
+			dash(direction)
+
+		
 
 		if is_on_floor():
 			doubleJumped = false
@@ -170,7 +168,7 @@ func _physics_process(delta: float) -> void:
 	elif mStyle == movementStyles.CLIMB:
 		direction = Input.get_axis("jump", "move_down")
 		#climbing movement
-		if direction and not hasDied:
+		if direction:
 			velocity.y = direction * speed
 		else:
 			velocity.y = move_toward(velocity.y, 0, actualSpeed)		
@@ -212,22 +210,16 @@ func _on_dash_picked_up() -> void:
 	dashes += 1
 
 func _on_died():
-	#upward bounce when you die
+	#prevents this method from being called repeatedly
 	if not hasDied:
-		health = 0
-		velocity.y = -jumpVelocity
+		health = 0 #just incase some other function called it before health actually reached zero
+		velocity.y = -jumpVelocity #bounce upward
 		hasDied = true
 		$DeathTimer.start()
-		$CollisionShape2D.queue_free()
+		$MainCollider.queue_free()
 		$DeathAudio.play()
 		Variables.deaths += 1
-		#makes sure you don't keep bouncing forever
-
-func _on_start_climbing():
-	mStyle = movementStyles.CLIMB
-
-func _on_stopped_climbing():
-	mStyle = movementStyles.MOVE
+		#death tracker to ensure deaths are displayed 
 
 enum movementStyles {
 	MOVE,
@@ -259,3 +251,18 @@ func _on_level_end(_currentLevel):
 
 func _on_jump_buffer_timer_timeout() -> void:
 	jumpBuffer = false
+
+func dash(direction) -> void:
+	if hasDied:
+		return 
+		#don't dash if we're dead lol
+	if dashes <= 0 or not canDash or not direction:
+		return 
+
+	canDash = false
+	dashes -= 1
+	actualSpeed = speed * DASH_FACTOR
+	$DashTimer.start()
+	SignalBus.dashStarted.emit()
+	#dash started is used by enemeis to check whether they hurt or they die
+				

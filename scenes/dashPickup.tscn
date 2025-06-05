@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dg08qteva4id8" path="res://scripts/dash_pickup.gd" id="1_5tdg5"]
 [ext_resource type="Texture2D" uid="uid://3a1k33kfl52x" path="res://assets/sprites/tiles/tilemap_packed.png" id="1_ngnwi"]
-[ext_resource type="AudioStream" uid="uid://dhi7x8apwju65" path="res://assets/sfx/pickup.wav" id="3_8crcj"]
+[ext_resource type="AudioStream" uid="uid://dhi7x8apwju65" path="res://assets/sounds/sfx/pickup.wav" id="3_8crcj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5tdg5"]
 atlas = ExtResource("1_ngnwi")
@@ -20,6 +20,7 @@ animations = [{
 }]
 
 [node name="dashPickup" type="Area2D"]
+z_index = 1
 collision_mask = 2
 script = ExtResource("1_5tdg5")
 

@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://5ac2xulr6ekg" path="res://assets/sprites/tiles/tilemap-characters_packed.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://b5tucn7mf1fb4" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://bxts6n0pw54v5" path="res://ui/hud.tscn" id="3_qhqgy"]
-[ext_resource type="AudioStream" uid="uid://bppi13errisx4" path="res://assets/sfx/death.wav" id="4_dqkch"]
-[ext_resource type="AudioStream" uid="uid://du3h5dihjr77n" path="res://assets/sfx/hurt.wav" id="5_qlg0r"]
-[ext_resource type="AudioStream" uid="uid://qmej8v0t5onr" path="res://assets/sfx/jump.wav" id="6_tuyoq"]
-[ext_resource type="AudioStream" uid="uid://ls7ynd81kfuc" path="res://assets/sfx/dash.wav" id="7_fjrip"]
+[ext_resource type="AudioStream" uid="uid://bppi13errisx4" path="res://assets/sounds/sfx/death.wav" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://du3h5dihjr77n" path="res://assets/sounds/sfx/hurt.wav" id="5_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://qmej8v0t5onr" path="res://assets/sounds/sfx/jump.wav" id="6_tuyoq"]
+[ext_resource type="AudioStream" uid="uid://ls7ynd81kfuc" path="res://assets/sounds/sfx/dash.wav" id="7_fjrip"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("1_3vyb7")
@@ -41,13 +41,14 @@ size = Vector2(14, 14)
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dqkch")
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="MainCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_g2els")
 
 [node name="DashTimer" type="Timer" parent="."]
@@ -92,6 +93,12 @@ bus = &"SFX"
 stream = ExtResource("7_fjrip")
 volume_db = 10.0
 bus = &"SFX"
+
+[node name="RayLadder" type="RayCast2D" parent="."]
+position = Vector2(0, 7)
+target_position = Vector2(0, -16)
+collision_mask = 8
+hit_from_inside = true
 
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
