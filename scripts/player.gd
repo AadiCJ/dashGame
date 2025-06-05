@@ -22,6 +22,7 @@ var speed: float
 var jumpVelocity: float
 var fallGravity: float
 var doubleJumpVelocity: float
+var isMobile = false
 
 
 var actualSpeed := speed
@@ -66,6 +67,7 @@ func calcMovement() -> void:
 
 func _ready() -> void:
 	calcMovement()
+	isMobile = true if OS.has_feature("mobile") else false
 	SignalBus.dashPickedUp.connect(_on_dash_picked_up)
 	SignalBus.died.connect(_on_died)
 	SignalBus.dashStarted.connect(_on_started_dash)
@@ -146,17 +148,22 @@ func _physics_process(delta: float) -> void:
 
 		
 		# Handle jump.
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and not isMobile:
 			if canJump or is_on_wall():
 				jump(false)
 			elif not is_on_floor():
 				jumpBuffer = true
 				$JumpBufferTimer.start()
-
+		
+		if Input.is_action_just_pressed("jumpMobile") and isMobile:
+			if canJump or is_on_wall():
+				jump(false)
+				$JumpTimer.start()
+			elif not is_on_floor():
+				jumpBuffer = true
 
 		#TODO: make dashes work on double pressed of inputs
 		if Input.is_action_just_pressed("dash"):
-			print_debug("tried dash")
 			dash(direction)
 
 		
@@ -167,7 +174,11 @@ func _physics_process(delta: float) -> void:
 				health -= 1
 		
 	elif mStyle == movementStyles.CLIMB:
-		direction = Input.get_axis("jump", "move_down")
+		if isMobile:
+			direction = Input.get_axis("jumpMobile", "move_down")
+		else:
+			direction = Input.get_axis("jump", "move_down")
+		
 		#climbing movement
 		if direction:
 			velocity.y = direction * speed
@@ -198,9 +209,12 @@ func jump(doubleJump: bool):
 	$JumpAudio.play()
 
 func canDoubleJump():
-	return Input.is_action_pressed("jump") and Input.is_action_just_pressed("dash") and not doubleJumped and dashes > 0 and not hasDied
-
-
+	var jumpPressed = false 
+	if not isMobile:
+		jumpPressed = Input.is_action_pressed("jump")
+	else:
+		jumpPressed = Input.is_action_pressed("jumpMobile") or not $JumpTimer.is_stopped()
+	return jumpPressed and Input.is_action_just_pressed("dash") and not doubleJumped and dashes > 0 and not hasDied
 
 func _on_dash_timer_timeout() -> void:
 	actualSpeed = speed	

@@ -72,4 +72,4 @@ tile_map_data = PackedByteArray("AAD9//b/AgABAAAAAAD+//b/AgACAAAAAAD///b/AgACAAA
 tile_set = ExtResource("4_dmnu2")
 
 [node name="WorldBoundary" parent="Basics" instance=ExtResource("5_sc6c1")]
-position = Vector2(24, 71)
+position = Vector2(63, 207)
