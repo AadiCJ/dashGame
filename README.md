@@ -1,6 +1,7 @@
 # Dash Game
 
 Welcome to **Dash Game** — a solo-developed action platformer built using the **Godot Engine**.  
+
 You have a few dashes, a lot of ingenuinety (for a square) and a lot of enemies to mow down
 
 ---
