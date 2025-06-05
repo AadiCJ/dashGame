@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const DASH_FACTOR := 3.5		
 const JUMP_FACTOR := 2
-const MAX_DASHES := 10
+const MAX_DASHES := 3 
 
 var jumpPeakTime := 0.35
 var jumpFallTime := 0.25

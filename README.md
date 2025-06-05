@@ -16,7 +16,7 @@ Increased mobility and attacking, both contained in the single mechanic.
 
 - **Engine:** [Godot Engine](https://godotengine.org/)
 - **Language:** GDScript
-- **Platform:** PC (Windows)
+- **Platform:** PC (Windows x64) and Android
 
 ---
 
@@ -24,12 +24,13 @@ Increased mobility and attacking, both contained in the single mechanic.
 
 This is a personal project made mostly by me — development, and testing.  
 I’m using it to level up my game dev skills and explore what Godot can do.
-The levels are all designed by my girlfriend (except the tutorial ones).
-(none of which I have yet implemented, but I will soon enough)
+The levels are all designed by my girlfriend (except the tutorial one).
 
 ## Asset Credit
 
-Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
+Character and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
+Background assets taken from  [Brackey's Platformer Bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle)
+Android movement keys made by me.
 
 ---
 
@@ -56,7 +57,8 @@ Character, Background and Tile assets taken from [kenny.nl](https://kenney.nl/as
 ## Features (TODO)
 
 - More levels
-  
+- Main Menu
+
 ### If I have time
 
 - Powerups
