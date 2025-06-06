@@ -5,7 +5,7 @@
 [sub_resource type="Gradient" id="Gradient_f60dt"]
 interpolation_mode = 1
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xc1pb"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xc1pb"]
 gradient = SubResource("Gradient_f60dt")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f60dt"]
@@ -33,7 +33,7 @@ offset_right = 62.0
 offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_xc1pb")
+texture = SubResource("GradientTexture1D_xc1pb")
 
 [node name="DisplayTimer" type="Timer" parent="."]
 wait_time = 0.05
