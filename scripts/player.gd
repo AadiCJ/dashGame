@@ -4,6 +4,7 @@ extends CharacterBody2D
 const DASH_FACTOR := 3.5		
 const JUMP_FACTOR := 2
 const MAX_DASHES := 3 
+const LADDER_SPEED_REDUCTION = 0.5
 
 var jumpPeakTime := 0.35
 var jumpFallTime := 0.25
@@ -109,18 +110,20 @@ func _physics_process(delta: float) -> void:
 	
 	canDash = true
 	#horizontal movement
-	var direction := Input.get_axis("move_left", "move_right")
-	if direction and not hasDied:
-		velocity.x = direction * actualSpeed
-	else:
-		velocity.x = move_toward(velocity.x, 0, actualSpeed)
-
+	
 	
 	if is_on_wall_only():
 		gravityModulation = 0.6
 
 	if mStyle == movementStyles.MOVE:
 		#check if we're moving or climbing
+
+		var direction := Input.get_axis("move_left", "move_right")
+		if direction and not hasDied:
+			velocity.x = direction * actualSpeed
+		else:
+			velocity.x = move_toward(velocity.x, 0, actualSpeed)
+
 
 		if not is_on_floor():
 			canJump = false
@@ -139,7 +142,7 @@ func _physics_process(delta: float) -> void:
 				jump(true)
 		else:
 			#is on floor
-			gravityModulation = 1
+			gravityModulation = 1 
 			canJump = true
 			if jumpBuffer:
 				jump(false)
@@ -173,16 +176,17 @@ func _physics_process(delta: float) -> void:
 				health -= 1
 		
 	elif mStyle == movementStyles.CLIMB:
+		var dir_y
+		var dir_x
 		if isMobile:
-			direction = Input.get_axis("jumpMobile", "move_down")
+			dir_y = Input.get_axis("jumpMobile", "move_down")
 		else:
-			direction = Input.get_axis("jump", "move_down")
+			dir_y = Input.get_axis("jump", "move_down")
 		
-		#climbing movement
-		if direction:
-			velocity.y = direction * speed
-		else:
-			velocity.y = move_toward(velocity.y, 0, actualSpeed)		
+		dir_x = Input.get_axis("move_left", "move_right")
+		velocity.x = dir_x * speed * LADDER_SPEED_REDUCTION	
+		velocity.y = dir_y * speed
+			
 	
 	velocityLastFrame = velocity.y
 	var was_on_floor = is_on_floor()
@@ -207,6 +211,8 @@ func jump(doubleJump: bool):
 	canJump = false
 	$JumpAudio.play()
 
+
+
 func canDoubleJump():
 	var jumpPressed = false 
 	if not isMobile:
@@ -222,6 +228,18 @@ func _on_dash_timer_timeout() -> void:
 
 func _on_dash_picked_up() -> void:
 	dashes += 1
+
+
+func getTileSpeedReduction():
+	var foregroundLayer: TileMapLayer = get_tree().get_first_node_in_group("Foreground")
+	if not foregroundLayer:
+		return null
+	var cell := foregroundLayer.local_to_map(position)
+	var data : TileData = foregroundLayer.get_cell_tile_data(cell)
+	if data:
+		return data.get_custom_data("speedReduction")
+	
+	return null
 
 func _on_died():
 	#prevents this method from being called repeatedly

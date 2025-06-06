@@ -59,8 +59,8 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
-limit_left = -321
-limit_right = 1216
+limit_left = -600
+limit_right = 1800
 limit_bottom = 720
 limit_smoothed = true
 position_smoothing_enabled = true

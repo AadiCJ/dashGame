@@ -12,7 +12,11 @@ var fallGravity = 0
 var jumpGravity = 0
 var jumpVelocity = 0
 var isMobile = OS.has_feature("mobile")
-@export var maxHealth = 3
+@export var maxHealth = 3 if isMobile else 2
+
+
+var totalScore = 0
+#TODO: show the player your score/total score in the final screen
 
 
 func _ready() -> void:
