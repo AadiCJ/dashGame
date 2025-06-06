@@ -1,14 +1,15 @@
 # Dash Game
 
 Welcome to **Dash Game** — a solo-developed action platformer built using the **Godot Engine**.  
+
 You have a few dashes, a lot of ingenuinety (for a square) and a lot of enemies to mow down
 
 ---
 
 ## About the Game
 
-**Dash Game** is a simple platformer game where everythine depends on your dash
-Increased mobility and attacking, both contained in the single mechanic.
+**Dash Game** is a simple platformer game where everything depends on your dash.
+Increased mobility, and attacking, both contained in a single mechanic.
 
 ---
 
@@ -28,11 +29,11 @@ The levels are all designed by my girlfriend (except the tutorial one).
 
 ## Asset Credit
 
-Character and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
-Background assets taken from  [Brackey's Platformer Bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle)
-Android movement keys made by me.
-Music taken from [pixabay](https://pixabay.com/sound-effects/8bit-music-for-game-68698/)
-SFX taken from [freesound](https://freesound.org/)
+- Character and Tile assets taken from [kenny.nl](https://kenney.nl/assets)
+- Background assets taken from  [Brackey's Platformer Bundle](https://brackeysgames.itch.io/brackeys-platformer-bundle)
+- Android movement keys made by me.
+- Music taken from [pixabay](https://pixabay.com/sound-effects/8bit-music-for-game-68698/)
+- SFX taken from [freesound](https://freesound.org/)
 
 ---
 
