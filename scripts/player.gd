@@ -66,6 +66,7 @@ func calcMovement() -> void:
 
 
 func _ready() -> void:
+	Variables.currentLevelScore = 0
 	calcMovement()
 	isMobile = true if OS.has_feature("mobile") else false
 	SignalBus.dashPickedUp.connect(_on_dash_picked_up)
@@ -278,6 +279,7 @@ func _on_score_change(scoreChange: int):
 
 func _on_level_end(_currentLevel):
 	SignalBus.displayScore.emit(score)
+	Variables.dashes = dashes
 	canMove = false
 
 

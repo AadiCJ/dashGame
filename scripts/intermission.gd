@@ -12,10 +12,11 @@ var length := 0
 var toDisplay = {}
 var score = ""
 var deaths = ""
+var isLastLevel: bool = Variables.isLastLevel
 @onready var button = $VBoxContainer/NextLevelButton
 
-func _ready() -> void:
-	score = str(Variables.score)
+func _ready() -> void:	
+	score = str(Variables.score + Variables.dashes)
 	deaths = str(Variables.deaths)
 
 
@@ -23,33 +24,42 @@ func _ready() -> void:
 	var scoreString = SCORE_START + score
 	toDisplay = [
 		{
+			"value": "Level: " + str(Variables.currentLevel),
+			"overwrite": true,
+			"object": null
+		},
+		{
 			"value": scoreString,
+			"overwrite": true,
 			"object": null
 		},
 		{
 			"value": deathString,
+			"overwrite": true,
 			"object": null
 		},
+		{
+			"value": "Next Level",
+			"overwrite": false,
+			"object": button
+
+		}
 	]
 	length = len(toDisplay[0]["value"])
 
 	for dict in toDisplay:
+		if dict["overwrite"]:
+			var child = Label.new()
+			child.align = 1
+			child.valign = 1
+			child.add_theme_font_size_override("font_size", 32)
+			dict["object"] = child
+		$VBoxContainer.add_child(dict["object"])
+		
 		#add labels for everthing we need to display
-		var child = Label.new()
-		child.align = 1
-		child.valign = 1
-		child.add_theme_font_size_override("font_size", 32)
-		dict["object"] = child
-		$VBoxContainer.add_child(child)
 
-	for child in $VBoxContainer.get_children():
-		if is_instance_of(child, Button):
-			$VBoxContainer.move_child(child, -1)
-	
-	toDisplay.append({
-		"value": "Next Level",
-		"object": button
-	})
+	$VBoxContainer.move_child($VBoxContainer/NextLevelButton, -1)
+
 
 	$DisplayTimer.start()
 

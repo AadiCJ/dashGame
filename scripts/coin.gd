@@ -2,7 +2,7 @@ extends Area2D
 
 
 func _ready() -> void:
-	Variables.totalScore += Variables.scoreTypes.COIN
+	Variables.currentLevelScore += Variables.scoreTypes.COIN
 
 func _on_body_entered(_body:Node2D) -> void:
 	SignalBus.scoreChange.emit(Variables.scoreTypes.COIN)

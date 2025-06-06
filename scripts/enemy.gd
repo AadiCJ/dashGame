@@ -11,7 +11,7 @@ var checks = 0
 var forgiven = 0
 
 func _ready() -> void:
-	Variables.totalScore += Variables.scoreTypes.ENEMY
+	Variables.currentLevelScore += Variables.scoreTypes.ENEMY
 	SignalBus.dashStarted.connect(dashStart)
 	SignalBus.dashEnded.connect(dashEnd)
 

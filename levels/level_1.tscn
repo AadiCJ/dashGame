@@ -121,6 +121,13 @@ offset_right = 190.0
 offset_bottom = -19.0
 text = "Shift to dash."
 
+[node name="DashScoreHint" parent="Hints" instance=ExtResource("4_kx6l7")]
+offset_left = 67.0
+offset_top = -78.0
+offset_right = 188.0
+offset_bottom = -50.0
+text = "Dashes count towards your score"
+
 [node name="Coins" type="Node" parent="."]
 
 [node name="Coin" parent="Coins" instance=ExtResource("8_l53as")]
