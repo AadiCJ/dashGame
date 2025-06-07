@@ -79,7 +79,7 @@ position = Vector2(63, 207)
 [node name="Coins" type="Node" parent="."]
 
 [node name="Coin" parent="Coins" instance=ExtResource("6_1y5xd")]
-position = Vector2(68, -83)
+position = Vector2(185, -81)
 
 [node name="Coin2" parent="Coins" instance=ExtResource("6_1y5xd")]
 position = Vector2(489, -135)
@@ -91,3 +91,6 @@ position = Vector2(734, -169)
 
 [node name="Enemy" parent="Enemies" instance=ExtResource("7_g5mgy")]
 position = Vector2(403, -136)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("7_g5mgy")]
+position = Vector2(82, -88)

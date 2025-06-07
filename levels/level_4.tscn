@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cgl6lf3v5bilk"]
+[gd_scene load_steps=11 format=4 uid="uid://cgl6lf3v5bilk"]
 
 [ext_resource type="PackedScene" uid="uid://06eq6m5svosu" path="res://scenes/level_end.tscn" id="1_t6q73"]
 [ext_resource type="PackedScene" uid="uid://bmec34vf4myt5" path="res://scenes/player.tscn" id="2_hokjj"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b3h043eh5i2km" path="res://scenes/world_boundary.tscn" id="5_sc6c1"]
 [ext_resource type="PackedScene" uid="uid://6ccequyk6cje" path="res://scenes/coin.tscn" id="6_hokjj"]
 [ext_resource type="PackedScene" uid="uid://bu3ptkhwhye4q" path="res://ui/hint.tscn" id="7_0fd8o"]
+[ext_resource type="PackedScene" uid="uid://bx4q6o8h464mh" path="res://scenes/enemy.tscn" id="8_dmnu2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fd8o"]
 texture = ExtResource("3_0fd8o")
@@ -86,7 +87,13 @@ position = Vector2(342, -278)
 position = Vector2(309, -61)
 
 [node name="Coin3" parent="Coins" instance=ExtResource("6_hokjj")]
-position = Vector2(605, -115)
+position = Vector2(693, -119)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("6_hokjj")]
+position = Vector2(748, -317)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("6_hokjj")]
+position = Vector2(655, -460)
 
 [node name="Hints" type="Node" parent="."]
 
@@ -111,3 +118,6 @@ offset_right = 297.0
 offset_bottom = -152.0
 rotation = 1.57079
 text = "--->"
+
+[node name="Enemy" parent="." instance=ExtResource("8_dmnu2")]
+position = Vector2(566, -117)

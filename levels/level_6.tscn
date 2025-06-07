@@ -106,3 +106,6 @@ position = Vector2(801, -335)
 
 [node name="dashPickup3" parent="Pickups" instance=ExtResource("8_xn6mk")]
 position = Vector2(675, -336)
+
+[node name="dashPickup4" parent="Pickups" instance=ExtResource("8_xn6mk")]
+position = Vector2(949, -389)

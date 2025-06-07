@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dpbpkaswvd6cj"]
+[gd_scene load_steps=11 format=4 uid="uid://dpbpkaswvd6cj"]
 
 [ext_resource type="PackedScene" uid="uid://06eq6m5svosu" path="res://scenes/level_end.tscn" id="1_20opy"]
 [ext_resource type="PackedScene" uid="uid://r26blq5dvq7q" path="res://scenes/dashPickup.tscn" id="1_jq78i"]
@@ -7,7 +7,6 @@
 [ext_resource type="TileSet" uid="uid://ivannuu7uhsl" path="res://resources/tileset/game.tres" id="4_ofchu"]
 [ext_resource type="PackedScene" uid="uid://b3h043eh5i2km" path="res://scenes/world_boundary.tscn" id="5_jq78i"]
 [ext_resource type="PackedScene" uid="uid://6ccequyk6cje" path="res://scenes/coin.tscn" id="7_lfnxh"]
-[ext_resource type="PackedScene" uid="uid://bx4q6o8h464mh" path="res://scenes/enemy.tscn" id="8_ofchu"]
 [ext_resource type="PackedScene" uid="uid://bu3ptkhwhye4q" path="res://ui/hint.tscn" id="9_jq78i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jq78i"]
@@ -91,11 +90,6 @@ position = Vector2(643, -176)
 [node name="dashPickup" parent="Pickups" instance=ExtResource("1_jq78i")]
 position = Vector2(621, -458)
 
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("8_ofchu")]
-position = Vector2(529, -174)
-
 [node name="Hints" type="Node" parent="."]
 
 [node name="Hint" parent="Hints" instance=ExtResource("9_jq78i")]
@@ -103,4 +97,20 @@ offset_left = 309.0
 offset_top = -203.0
 offset_right = 349.0
 offset_bottom = -187.0
+text = "--->"
+
+[node name="Hint2" parent="Hints" instance=ExtResource("9_jq78i")]
+offset_left = 86.0
+offset_top = -27.0
+offset_right = 126.0
+offset_bottom = -11.0
+rotation = -1.57079
+text = "--->"
+
+[node name="Hint3" parent="Hints" instance=ExtResource("9_jq78i")]
+offset_left = 651.0
+offset_top = -250.0
+offset_right = 691.0
+offset_bottom = -234.0
+rotation = -1.57079
 text = "--->"

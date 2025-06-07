@@ -19,7 +19,7 @@ const LEVEL_PATH = "res:///levels/level_"
 var score = 0
 var deaths = 0
 var dashes = 0 #extra dashes = extra score
-var currentLevel = 0
+var currentLevel = 1
 var fallGravity = 0
 var jumpGravity = 0
 var jumpVelocity = 0
