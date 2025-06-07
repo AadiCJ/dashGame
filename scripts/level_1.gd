@@ -5,4 +5,3 @@ extends Node
 func _ready() -> void:
 	if Variables.isMobile:
 		$Hints/DashHint.text = "Press the dash button (right side) to dash"
-		$Hints/DoubleJumpHint.text = "Try dashing mid air"

@@ -90,8 +90,7 @@ offset_left = 449.0
 offset_top = -44.0
 offset_right = 579.0
 offset_bottom = -25.0
-text = "Try dashing mid air 
-(while holding jump)"
+text = "Try dashing while jumping"
 
 [node name="LadderHint" parent="Hints" instance=ExtResource("4_kx6l7")]
 offset_left = 475.0

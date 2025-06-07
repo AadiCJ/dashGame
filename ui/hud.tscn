@@ -56,14 +56,14 @@ visibility_mode = 1
 position = Vector2(164, 455)
 scale = Vector2(5, 5)
 texture_normal = SubResource("AtlasTexture_7ihmi")
-action = "jumpMobile"
+action = "jump"
 visibility_mode = 1
 
 [node name="UpButton2" type="TouchScreenButton" parent="."]
 position = Vector2(1028, 424)
 scale = Vector2(5, 5)
 texture_normal = SubResource("AtlasTexture_7ihmi")
-action = "jumpMobile"
+action = "jump"
 visibility_mode = 1
 
 [node name="RightButton" type="TouchScreenButton" parent="."]
