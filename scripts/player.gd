@@ -194,11 +194,7 @@ func _physics_process(delta: float) -> void:
 	elif mStyle == movementStyles.CLIMB:
 		var dir_y
 		var dir_x
-		if isMobile:
-			dir_y = Input.get_axis("jumpMobile", "move_down")
-		else:
-			dir_y = Input.get_axis("jump", "move_down")
-		#handle climbing input
+		dir_y = Input.get_axis("jump", "move_down")#handle climbing input
 		dir_x = Input.get_axis("move_left", "move_right")
 		velocity.x = dir_x * speed * LADDER_SPEED_REDUCTION	
 		velocity.y = dir_y * speed

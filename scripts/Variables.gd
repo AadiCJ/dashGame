@@ -7,12 +7,12 @@ enum scoreTypes {
 
 #level number: dashes you should have at the end of hte level
 const IDEAL_DASHES = {
-	1: 2, 
-	2: 1,
-	3: 1,
-	4: 1,
+	1: 3, 
+	2: 2,
+	3: 2,
+	4: 0,
 	5: 1,
-	6: 0,
+	6: 1,
 }
 const LEVEL_PATH = "res:///levels/level_"
 

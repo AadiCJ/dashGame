@@ -85,6 +85,9 @@ position = Vector2(343, -261)
 [node name="Coin2" parent="Coins" instance=ExtResource("7_lfnxh")]
 position = Vector2(643, -176)
 
+[node name="Coin3" parent="Coins" instance=ExtResource("7_lfnxh")]
+position = Vector2(712, -332)
+
 [node name="Pickups" type="Node" parent="."]
 
 [node name="dashPickup" parent="Pickups" instance=ExtResource("1_jq78i")]

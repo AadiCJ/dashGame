@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://d1rwyif5acn5b"]
+[gd_scene load_steps=11 format=4 uid="uid://d1rwyif5acn5b"]
 
 [ext_resource type="PackedScene" uid="uid://06eq6m5svosu" path="res://scenes/level_end.tscn" id="1_26h77"]
 [ext_resource type="PackedScene" uid="uid://bmec34vf4myt5" path="res://scenes/player.tscn" id="2_1y5xd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b3h043eh5i2km" path="res://scenes/world_boundary.tscn" id="5_ldpug"]
 [ext_resource type="PackedScene" uid="uid://6ccequyk6cje" path="res://scenes/coin.tscn" id="6_1y5xd"]
 [ext_resource type="PackedScene" uid="uid://bx4q6o8h464mh" path="res://scenes/enemy.tscn" id="7_g5mgy"]
+[ext_resource type="PackedScene" uid="uid://r26blq5dvq7q" path="res://scenes/dashPickup.tscn" id="8_v5ho1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g5mgy"]
 texture = ExtResource("3_g5mgy")
@@ -94,3 +95,8 @@ position = Vector2(403, -136)
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource("7_g5mgy")]
 position = Vector2(82, -88)
+
+[node name="Pickups" type="Node" parent="."]
+
+[node name="dashPickup" parent="Pickups" instance=ExtResource("8_v5ho1")]
+position = Vector2(509, -136)
