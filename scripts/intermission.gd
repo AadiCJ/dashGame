@@ -18,6 +18,7 @@ var isLastLevel: bool = Variables.isLastLevel
 func _ready() -> void:	
 	score = str(Variables.score + Variables.dashes)
 	deaths = str(Variables.deaths)
+	Variables.totalScoreCollected += Variables.score + Variables.dashes
 
 
 	var deathString = DEATHS_START + str(deaths)
@@ -54,6 +55,8 @@ func _ready() -> void:
 			child.valign = 1
 			child.add_theme_font_size_override("font_size", 32)
 			dict["object"] = child
+		if dict["object"] == button and isLastLevel:
+			dict["value"] = "Go to end screen"
 		$VBoxContainer.add_child(dict["object"])
 		
 		#add labels for everthing we need to display
@@ -62,7 +65,6 @@ func _ready() -> void:
 
 
 	$DisplayTimer.start()
-
 
 #makes the score and deaths show up nicely
 func _on_display_timer_timeout() -> void:
@@ -83,6 +85,9 @@ func _on_display_timer_timeout() -> void:
 
 
 func _on_button_pressed() -> void:
+	if isLastLevel: 
+		get_tree().change_scene_to_file("res://ui/end_screen.tscn")
+		return
 	var nextLevel = Variables.currentLevel + 1
 	var nextLevelPath = LEVEL_PATH + str(nextLevel) + ".tscn"
 	Transition.change_scene(nextLevelPath)

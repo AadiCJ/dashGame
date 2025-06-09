@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://be48cnksp7m82"]
+
+[ext_resource type="Script" uid="uid://cf0tb0qqx0gik" path="res://scripts/end_screen.gd" id="1_70k24"]
+
+[sub_resource type="Gradient" id="Gradient_d2olf"]
+interpolation_mode = 1
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_70k24"]
+gradient = SubResource("Gradient_d2olf")
+
+[node name="EndScreen" type="CanvasLayer"]
+script = ExtResource("1_70k24")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 20.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_70k24")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -302.0
+offset_right = 302.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Thank you for playing this short game
+"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -34.5
+offset_right = 82.5
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="DisplayTimer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="DisplayTimer" to="." method="_on_display_timer_timeout"]

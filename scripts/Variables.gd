@@ -10,7 +10,7 @@ const IDEAL_DASHES = {
 	1: 3, 
 	2: 2,
 	3: 2,
-	4: 0,
+	4: 1,
 	5: 1,
 	6: 1,
 }
@@ -31,6 +31,7 @@ var levelCount = 0
 
 var totalScore = 0
 var currentLevelScore = 0
+var totalScoreCollected = 0
 #TODO: show the player your score/total score in the final screen
 
 
